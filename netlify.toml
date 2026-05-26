@@ -35,7 +35,7 @@
     # ── CONTENT SECURITY POLICY ───────────────────────────────
     # Allows: self + Amazon/Awin links. Blocks inline scripts/iframes.
     # Adjust 'connect-src' if you add analytics later.
-    Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
 
 # ── CACHE HEADERS FOR STATIC ASSETS ────────────────────────────
 # Images, fonts, CSS: 1 year cache (fingerprinted by Netlify)

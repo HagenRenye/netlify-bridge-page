@@ -53,10 +53,10 @@
 - 🔗 https://github.com/HagenRenye/netlify-bridge-page
 
 ### 4. Netlify Deploy
-- [ ] Einloggen auf [app.netlify.com](https://app.netlify.com)
-- [ ] *"Add new site" → "Import an existing project"* → `HagenRenye/netlify-bridge-page` auswählen
-- [ ] Deploy abwarten (ca. 30 Sekunden)
-- [ ] Custom Domain optional konfigurieren
+- ✅ Einloggen auf [app.netlify.com](https://app.netlify.com)
+- ✅ `HagenRenye/netlify-bridge-page` importiert
+- ✅ Seite erfolgreich veröffentlicht!
+- 🔗 **Live URL:** https://cute-pasca-7b0419.netlify.app
 
 ### 5. Optional / Nice-to-have
 - [ ] Produktbild (`.webp`) hinzufügen und in `index.html` einbinden

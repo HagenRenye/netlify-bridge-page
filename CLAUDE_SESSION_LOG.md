@@ -70,11 +70,11 @@ Es existierte noch kein Projekt, kein Repo, keine Seite.
    - `datenschutz.html` (DSGVO)
    > Beide sind im Footer bereits verlinkt – Dateien fehlen noch!
 
-5. **Netlify Deploy** (kann Claude helfen oder User macht es selbst):
-   - Einloggen: https://app.netlify.com
-   - *"Add new site" → "Import an existing project"*
-   - GitHub-Repo `HagenRenye/netlify-bridge-page` auswählen
-   - Deploy startet automatisch (~30 Sekunden)
+5. **Netlify Deploy**
+   - ✅ Angemeldet auf https://app.netlify.com
+   - ✅ GitHub-Repo `HagenRenye/netlify-bridge-page` verknüpft
+   - ✅ Erfolgreich deployed!
+   - 🔗 **Live URL:** https://cute-pasca-7b0419.netlify.app
 
 6. **Optional:**
    - Produktbild (`.webp`) hinzufügen

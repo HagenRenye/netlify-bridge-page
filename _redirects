@@ -1,0 +1,10 @@
+# _redirects – Netlify Redirect Rules
+# Format: [from] [to] [status]
+# Diese Datei hat Vorrang vor netlify.toml-Redirects.
+# ─────────────────────────────────────────────────────
+
+# Beispiel: Kurz-URL direkt zum Affiliate-Link weiterleiten (302 = temporär)
+# /go/produkt  https://DEIN-AFFILIATE-LINK-HIER  302
+
+# Beispiel: Alte URL auf neue umleiten (301 = permanent)
+# /alt-seite   /neue-seite  301

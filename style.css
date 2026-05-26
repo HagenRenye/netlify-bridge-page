@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════════════
+   style.css – Bridge Page Styles
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0f14;
+  --surface:   #181b23;
+  --border:    #2a2d3a;
+  --accent:    #6c63ff;
+  --accent-2:  #ff6584;
+  --text:      #e8eaf0;
+  --muted:     #8a8fa8;
+  --radius:    14px;
+  --shadow:    0 8px 32px rgba(0,0,0,.45);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── HEADER ───────────────────────────────────────────────── */
+header {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(24,27,35,.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 5rem 1.5rem 3rem;
+  max-width: 680px;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(108,99,255,.15);
+  border: 1px solid rgba(108,99,255,.35);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: .35rem .85rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* ── CTA BUTTON ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: .9rem 2rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(108,99,255,.4);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(108,99,255,.55);
+}
+
+.btn:active { transform: translateY(0); }
+
+/* ── FEATURES GRID ────────────────────────────────────────── */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: 900px;
+  width: 100%;
+  padding: 0 1.5rem 5rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  transition: border-color .2s, transform .2s;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.card p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  margin-top: auto;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .8rem;
+  border-top: 1px solid var(--border);
+}
+
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }

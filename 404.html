@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seite nicht gefunden – 404</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .error-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex: 1;
+      padding: 5rem 1.5rem;
+      gap: 1.25rem;
+    }
+    .error-code {
+      font-size: clamp(5rem, 15vw, 9rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, #6c63ff, #ff6584);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .error-wrap h1 { font-size: 1.5rem; font-weight: 700; }
+    .error-wrap p  { color: var(--muted); max-width: 420px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="logo">✦ MeinBrand</span>
+  </header>
+
+  <main class="error-wrap">
+    <div class="error-code" aria-hidden="true">404</div>
+    <h1>Seite nicht gefunden</h1>
+    <p>Diese Seite existiert leider nicht (mehr). Vielleicht wurde der Link geändert oder es hat sich ein Tippfehler eingeschlichen.</p>
+    <a id="btn-home" class="btn" href="/">← Zurück zur Startseite</a>
+  </main>
+
+  <footer>
+    <p><a href="/">Startseite</a> &nbsp;|&nbsp; <a href="/impressum.html">Impressum</a> &nbsp;|&nbsp; <a href="/datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+</body>
+</html>

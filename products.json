@@ -1,0 +1,286 @@
+{
+  "categories": [
+    {
+      "id": "luxury-kitchens",
+      "title": "World of Luxury Kitchens",
+      "tagline": "Where culinary art meets exceptional design",
+      "products": [
+        {
+          "name": "Jura E8 Automatic Espresso Machine",
+          "brand": "Jura",
+          "description": "Fifteen brewing specialities at the touch of a button. The Pulse Extraction Process delivers the finest crema and an incomparable flavour.",
+          "price": "from $1,299",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Jura+E8+espresso+machine&tag=treasurewor0f-20"
+        },
+        {
+          "name": "De'Longhi La Specialista Arte",
+          "brand": "De'Longhi",
+          "description": "Built-in grinder, smart tamping station and dual heating system — barista-level results in your own kitchen, every morning.",
+          "price": "from $699",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=DeLonghi+La+Specialista+Arte&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Le Creuset Signature Cast Iron Set",
+          "brand": "Le Creuset",
+          "description": "French craftsmanship since 1925. Enamelled cast iron that distributes heat perfectly and lasts a lifetime — a true kitchen heirloom.",
+          "price": "from $480",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Le+Creuset+cast+iron+set+signature&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Smeg 50's Retro Style Espresso Machine",
+          "brand": "Smeg",
+          "description": "Italian design icon. Polished chrome finish, professional steam wand, and that unmistakeable retro silhouette that transforms any kitchen.",
+          "price": "from $399",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Smeg+retro+espresso+machine&tag=treasurewor0f-20"
+        },
+        {
+          "name": "KitchenAid Artisan Series Stand Mixer",
+          "brand": "KitchenAid",
+          "description": "The original. Ten speeds, planetary mixing action, and over 30 attachments. Built to last generations — available in over 30 colours.",
+          "price": "from $449",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=KitchenAid+Artisan+stand+mixer&tag=treasurewor0f-20"
+        }
+      ]
+    },
+    {
+      "id": "outdoor-living",
+      "title": "World of Outdoor Living",
+      "tagline": "Your private paradise, perfected",
+      "products": [
+        {
+          "name": "Teak Garden Dining Set — 8 Seater",
+          "brand": "Premium Teak",
+          "description": "Grade A teak from sustainably managed forests. Weather-resistant, naturally oil-rich, and more beautiful with every passing season.",
+          "price": "from $2,200",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=teak+garden+dining+set+8+seater+premium&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Weber Genesis E-335 Gas Grill",
+          "brand": "Weber",
+          "description": "Three powerful burners, sear station, side burner. Weber's finest freestanding grill — engineered for those who take outdoor cooking seriously.",
+          "price": "from $1,099",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Weber+Genesis+E-335+gas+grill&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Napoleon Prestige 500 Built-In Grill",
+          "brand": "Napoleon",
+          "description": "Infrared side burner, rear burner, WAVE cooking grids. Professional outdoor kitchen performance for the serious entertainer.",
+          "price": "from $1,899",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Napoleon+Prestige+500+grill&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Designer Outdoor Lounge Set",
+          "brand": "Garden Luxury",
+          "description": "Powder-coated aluminium frame, Sunbrella fabric cushions. Elegant all-weather lounging for terraces, patios, and pool areas.",
+          "price": "from $1,400",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=luxury+outdoor+lounge+set+aluminium+sunbrella&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Luxury Fire Pit — Corten Steel",
+          "brand": "Premium Outdoor",
+          "description": "Weathering Corten steel develops a unique patina over time. A sculptural centrepiece that brings warmth and atmosphere to any outdoor space.",
+          "price": "from $380",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=luxury+corten+steel+fire+pit+outdoor&tag=treasurewor0f-20"
+        }
+      ]
+    },
+    {
+      "id": "fine-fragrances",
+      "title": "World of Fine Fragrances",
+      "tagline": "The invisible signature of extraordinary character",
+      "products": [
+        {
+          "name": "Black Orchid Eau de Parfum",
+          "brand": "Tom Ford",
+          "description": "A luxurious and sensual fragrance of rich, dark accords and a floriental heart. Black truffle, orchid, dark chocolate — unforgettable.",
+          "price": "from $180",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Tom+Ford+Black+Orchid+eau+de+parfum&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Aventus Eau de Parfum",
+          "brand": "Creed",
+          "description": "Inspired by the life of Napoleon Bonaparte. Pineapple, birch, musk and ambergris. The world's most celebrated masculine fragrance.",
+          "price": "from $435",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Creed+Aventus+eau+de+parfum&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Sauvage Elixir",
+          "brand": "Dior",
+          "description": "A powerful, concentrated elixir. Spicy top notes of ginger and cardamom give way to a woody, sensual base of sandalwood and hawthorn.",
+          "price": "from $160",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Dior+Sauvage+Elixir&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Naxos Eau de Parfum",
+          "brand": "Xerjoff",
+          "description": "Italian niche perfumery at its finest. Lavender, tonka bean, tobacco and honey — the essence of a golden Mediterranean afternoon.",
+          "price": "from $295",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Xerjoff+Naxos+eau+de+parfum&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Interlude Man Eau de Parfum",
+          "brand": "Amouage",
+          "description": "A dissonant journey between harmony and chaos. Oregano, amber, frankincense — opulent Arabian perfumery crafted for those who dare.",
+          "price": "from $340",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Amouage+Interlude+Man+eau+de+parfum&tag=treasurewor0f-20"
+        }
+      ]
+    },
+    {
+      "id": "timepieces",
+      "title": "World of Timepieces",
+      "tagline": "Precision as a way of life",
+      "products": [
+        {
+          "name": "Conquest Classic Automatic",
+          "brand": "Longines",
+          "description": "Swiss precision since 1832. Self-winding movement, sapphire crystal, 50m water resistance. Timeless elegance on the wrist.",
+          "price": "from $1,200",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Longines+Conquest+Classic+automatic+watch&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Seastar 1000 Chronograph",
+          "brand": "Tissot",
+          "description": "Swiss Made diver's watch with 300m water resistance. Unidirectional rotating bezel, luminescent hands, and Swiss chronograph movement.",
+          "price": "from $875",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Tissot+Seastar+1000+chronograph&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Meisterstück Soft Grain Briefcase",
+          "brand": "Montblanc",
+          "description": "Full-grain calfskin leather with the iconic Montblanc emblem. The definitive companion for those who conduct the world's business.",
+          "price": "from $890",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Montblanc+Meisterstuck+leather+briefcase&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Freelancer Automatic Skeleton",
+          "brand": "Raymond Weil",
+          "description": "Open-worked dial revealing the automatic movement in motion. 42mm case, calfskin strap. Swiss craftsmanship at an exceptional value.",
+          "price": "from $1,650",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Raymond+Weil+Freelancer+automatic+skeleton&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Classic Fusion Titanium 45mm",
+          "brand": "Hublot",
+          "description": "The Art of Fusion. Scratch-resistant titanium case, black ceramic bezel, sapphire crystal — where horology meets contemporary design.",
+          "price": "from $5,800",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Hublot+Classic+Fusion+titanium+watch&tag=treasurewor0f-20"
+        }
+      ]
+    },
+    {
+      "id": "premium-audio",
+      "title": "World of Premium Audio",
+      "tagline": "Sound as an art form",
+      "products": [
+        {
+          "name": "Beosound A9 5th Generation",
+          "brand": "Bang & Olufsen",
+          "description": "360-degree sound, iconic circular design. Aluminium and fabric in perfect harmony. The centrepiece of any room that values both design and acoustics.",
+          "price": "from $2,999",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Bang+Olufsen+Beosound+A9+speaker&tag=treasurewor0f-20"
+        },
+        {
+          "name": "606 S3 Anniversary Bookshelf Speakers",
+          "brand": "Bowers & Wilkins",
+          "description": "Seven decades of British acoustic engineering. Continuum cone technology, decoupled tweeter — a reference monitor for the discerning listener.",
+          "price": "from $899",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Bowers+Wilkins+606+S3+speakers&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Era 300 Spatial Audio Speaker",
+          "brand": "Sonos",
+          "description": "Dolby Atmos spatial audio in a single speaker. Six drivers, four amplifiers, and Sonos TruePlay tuning — music the way the artist intended.",
+          "price": "from $449",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Sonos+Era+300+speaker&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Beoplay H95 Wireless Headphones",
+          "brand": "Bang & Olufsen",
+          "description": "40 hours battery, adaptive active noise cancellation, lambskin ear cushions. The pinnacle of wireless headphone engineering.",
+          "price": "from $799",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Bang+Olufsen+Beoplay+H95+headphones&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Phantom I Premium Wireless Speaker",
+          "brand": "Devialet",
+          "description": "108dB, 3000W of pure class A amplification in a single cabinet. French engineering that redefined what wireless audio could be.",
+          "price": "from $1,790",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Devialet+Phantom+I+speaker&tag=treasurewor0f-20"
+        }
+      ]
+    },
+    {
+      "id": "interior-art",
+      "title": "World of Interior & Art",
+      "tagline": "Every room, a living masterpiece",
+      "products": [
+        {
+          "name": "Abstract Gold Leaf Canvas — Large Format",
+          "brand": "Premium Wall Art",
+          "description": "Hand-applied genuine gold leaf on stretched canvas. Each piece unique. A statement artwork that anchors any living space with quiet authority.",
+          "price": "from $380",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=large+abstract+gold+leaf+canvas+wall+art+luxury&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Villeroy & Boch Artesano Vase Collection",
+          "brand": "Villeroy & Boch",
+          "description": "Fine European porcelain with hand-painted detailing. A timeless decorative object that elevates any shelf, table, or console.",
+          "price": "from $120",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Villeroy+Boch+vase+porcelain+luxury&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Cashmere Throw — Herringbone Weave",
+          "brand": "Luxury Textiles",
+          "description": "Pure Grade A Mongolian cashmere, herringbone weave. Extraordinarily soft, naturally temperature-regulating — the definition of understated luxury.",
+          "price": "from $290",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=pure+cashmere+throw+blanket+herringbone+luxury&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Arc Floor Lamp — Brushed Brass",
+          "brand": "Designer Lighting",
+          "description": "Brushed brass finish, articulated arm, linen shade. A sculptural lighting object that defines atmosphere in any living or reading space.",
+          "price": "from $320",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=arc+floor+lamp+brushed+brass+luxury+designer&tag=treasurewor0f-20"
+        },
+        {
+          "name": "Swarovski Crystal Object Collection",
+          "brand": "Swarovski",
+          "description": "Precision-cut crystal objects that capture and play with light. Iconic Swarovski craftsmanship — collectible decorative pieces of enduring beauty.",
+          "price": "from $95",
+          "image": "",
+          "amazon": "https://www.amazon.com/s?k=Swarovski+crystal+decorative+object+home&tag=treasurewor0f-20"
+        }
+      ]
+    }
+  ]
+}

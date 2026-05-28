@@ -1,0 +1,36 @@
+{
+  "name": "netlify-bridge-page",
+  "version": "1.0.0",
+  "description": "Statische Bridge-Page, deployed via **Netlify** (GitHub → Netlify CI/CD).",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HagenRenye/netlify-bridge-page.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HagenRenye/netlify-bridge-page/issues"
+  },
+  "homepage": "https://github.com/HagenRenye/netlify-bridge-page#readme",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^3.4.19",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14"
+  }
+}

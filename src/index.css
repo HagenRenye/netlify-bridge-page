@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&family=Jura:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═════════════════════════════════════════════════ */
+/* LUXURY DESIGN SYSTEM – Base Styles             */
+/* ═════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    --background: 8 8% 5%;
+    --foreground: 60 5% 96%;
+    --card: 8 8% 7%;
+    --card-foreground: 60 5% 96%;
+    --primary: 45 65% 62%;
+    --primary-foreground: 8 8% 5%;
+    --secondary: 45 20% 45%;
+    --secondary-foreground: 60 5% 96%;
+    --muted: 200 7% 40%;
+    --muted-foreground: 60 5% 96%;
+    --accent: 45 65% 62%;
+    --accent-foreground: 8 8% 5%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 60 5% 96%;
+    --input: 8 8% 12%;
+    --border: 200 7% 20%;
+    --ring: 45 65% 62%;
+    --radius: 0.5rem;
+    
+    --sidebar-background: 8 8% 5%;
+    --sidebar-foreground: 60 5% 96%;
+    --sidebar-primary: 45 65% 62%;
+    --sidebar-primary-foreground: 8 8% 5%;
+    --sidebar-accent: 45 65% 62%;
+    --sidebar-accent-foreground: 8 8% 5%;
+    --sidebar-border: 200 7% 20%;
+    --sidebar-ring: 45 65% 62%;
+  }
+
+  body {
+    @apply bg-luxury-dark text-cream font-jost antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cinzel font-semibold;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-cinzel text-cream mb-12 tracking-wide;
+  }
+
+  .ornament {
+    @apply flex items-center gap-5 my-7;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    @apply flex-1 h-px bg-gradient-to-r from-transparent via-gold to-transparent;
+    content: '';
+  }
+
+  .ornament-diamond {
+    @apply w-1.5 h-1.5 bg-gold transform rotate-45 flex-shrink-0;
+  }
+}
+
+@layer components {
+  .card-luxury {
+    @apply bg-luxury-card border border-gold border-opacity-20 rounded-lg p-8 backdrop-blur-sm;
+  }
+
+  .btn-luxury {
+    @apply px-8 py-3 rounded-lg font-jost font-medium transition-all duration-300
+      bg-gold text-luxury-dark hover:bg-gold hover:bg-opacity-80 
+      active:scale-95;
+  }
+
+  .btn-luxury-outline {
+    @apply px-8 py-3 rounded-lg font-jost font-medium transition-all duration-300
+      border border-gold text-gold hover:bg-gold hover:bg-opacity-10
+      active:scale-95;
+  }
+
+  .text-luxury {
+    @apply text-cream text-opacity-90;
+  }
+
+  .text-luxury-muted {
+    @apply text-cream text-opacity-60;
+  }
+
+  .input-luxury {
+    @apply w-full bg-luxury-card border border-gold border-opacity-20 rounded-lg 
+      px-4 py-2 text-cream placeholder-cream placeholder-opacity-40
+      focus:outline-none focus:border-gold focus:border-opacity-100
+      transition-colors duration-300;
+  }
+}
+
+/* Grain Texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.4;
+}

@@ -1,16 +1,19 @@
 # ═══════════════════════════════════════════════════════════════
-# netlify.toml – Static Bridge-Page Configuration
+# netlify.toml – React + Vite Build Configuration
 # GitHub → Netlify Deploy Pipeline
 # ═══════════════════════════════════════════════════════════════
 
 # ── BUILD SETTINGS ──────────────────────────────────────────────
 [build]
-  # Root of the repo IS the publish directory (pure static, no build step)
-  publish = "."
-  # No build command needed for static HTML
-  # command = ""
+  command = "npm run build"
+  publish = "dist"
 
-# ── GLOBAL HTTP HEADERS ─────────────────────────────────────────
+# ── REDIRECTS ────────────────────────────────────────────────────
+# SPA fallback: all non-file requests → index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 # Applied to ALL pages. Optimizes speed, security, and affiliate
 # link compliance (no referrer leaking to Amazon/Awin).
 [[headers]]

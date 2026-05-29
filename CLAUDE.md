@@ -1,10 +1,40 @@
-# CLAUDE.md – World of Treasure (netlify-bridge-page)
+# CLAUDE.md – H.M. Renyé: Spheres of Elegance
 
-**Projekt-Typ:** Luxury E-Commerce Landing Page  
+**Projekt-Typ:** Luxury Affiliate Curation Platform  
+**Brand Name:** H.M. Renyé  
+**Sub-Brand:** Spheres of Elegance  
+**Model:** Pinterest → Website → Affiliate Links (Amazon + Awin)  
 **Status:** LIVE & Functional  
 **Last Updated:** 28.05.2026  
 **Deployment:** Netlify (auto-deploy via GitHub)  
-**Live URL:** https://cute-pasca-7b0419.netlify.app
+**Live URL:** https://cute-pasca-7b0419.netlify.app  
+**GitHub Repo:** https://github.com/HagenRenye/netlify-bridge-page
+
+---
+
+## 💼 HAUPTTHEMA – Business Model
+
+### Strategy (CRITICAL)
+1. **Pinterest-Konform:** Nur visuelle Qualität, keine Spam
+2. **Brand Identity:** H.M. Renyé (Hauptname auf Website)
+3. **Sub-Brand:** Spheres of Elegance (unter Markennamen)
+4. **Monetisierung:** Amazon Associates + Awin Affiliate Network
+5. **Product Strategy:** Luxury Items handpicked pro Sphere
+
+### Revenue Flow
+```
+Pinterest Pin (Visual High Quality)
+        ↓
+Website (H.M. Renyé – Spheres of Elegance)
+        ↓
+Product Link (Amazon Affiliate / Awin)
+        ↓
+Commission on Sale
+```
+
+### Affiliate Networks
+- **Amazon Associates:** Standard Luxury Products
+- **Awin:** Specialty Luxury Brands (Bang & Olufsen, Infinity, etc.)
 
 ---
 
@@ -54,7 +84,7 @@ Fonts:        Google Fonts (Jura, Jost, Cinzel, Cormorant Garamond)
 ```
 netlify-bridge-page/
 ├── src/
-│   ├── App.tsx              ← Main component (World of Treasure)
+│   ├── App.tsx              ← Main component (H.M. Renyé – Spheres of Elegance)
 │   ├── main.tsx
 │   └── index.css            ← Tailwind imports + custom CSS variables
 ├── tailwind.config.ts       ← Luxury design tokens
@@ -120,15 +150,65 @@ Jede Sphere:
    - Build + Push
 
 ### Nächste geplante Features:
+
+**Phase 1: Product Integration**
 - [ ] Karusells pro Sphere (Product Showcase)
-- [ ] Sphere-Pages (Shop-Seiten mit Content + Links)
+- [ ] Affiliate Links (Amazon + Awin)
+- [ ] Product Grid mit Bilder + Produktinfos
+
+**Phase 2: Shop-Structure**
+- [ ] Sphere-Pages (Einzelne Landingpages pro Kategorie)
 - [ ] React Router (Navigation zwischen Spheres)
-- [ ] Affiliate Links Management
-- [ ] Product Grid pro Sphere
+- [ ] Pinterest-friendly Layout (mobile optimiert)
+
+**Phase 3: Pinterest Strategy**
+- [ ] Pinterest Pins generieren (pro Produkt/Sphere)
+- [ ] Pin-Templates (Figma)
+- [ ] Affiliate Link Tracking (UTM Parameters)
 
 ---
 
-## 🔐 GitHub Credentials (Stored Locally)
+## 🛍️ Spheres – Produktkategorien & Brands
+
+### Sphere 1: Luxury Kitchens
+**Brands:** Jura, De'Longhi, Le Creuset, Smeg, KitchenAid  
+**Fokus:** Premium Espresso Machines, Designer Cookware, Kitchen Tech
+
+### Sphere 2: Outdoor Living
+**Brands:** Teak, Napoleon, Weber, Bang & Olufsen Outdoor  
+**Fokus:** Grill Systems, Designer Loungers, Outdoor Audio, Fire Features
+
+### Sphere 3: Fine Fragrances
+**Brands:** Tom Ford, Creed, Xerjoff, Amouage  
+**Fokus:** Niche Perfumes, Luxury Candles, Fragrance Collections
+
+### Sphere 4: Timepieces
+**Brands:** Longines, Tissot, Montblanc, **Infinity**, Fine Leather Goods  
+**Fokus:** Swiss Watches, Designer Timepieces, Accessories
+
+### Sphere 5: Premium Audio
+**Brands:** **Bang & Olufsen, Infinity**, Bowers & Wilkins, Sonos  
+**Fokus:** High-End Speakers, Smart Home Audio, Audio Systems
+
+### Sphere 6: Interior & Art
+**Brands:** Designer Furniture, Art Suppliers, Luxury Decor  
+**Fokus:** Statement Pieces, Luxury Home Decor, Objects d'art
+
+---
+
+## 📊 Affiliate Strategy
+
+**Netzwerke:**
+- Amazon Associates (Standard Luxury Products)
+- Awin (Specialty Brands: Bang & Olufsen, Infinity, Tom Ford, etc.)
+
+**Process:**
+1. Hagen recherchiert Produkte pro Sphere (Amazon + Awin)
+2. Erstellt Affiliate Links mit UTM Tracking
+3. Integrator in Website (Product Cards mit Link)
+4. Pinterest Pins → Website → Link → Commission
+
+---
 
 **Token:** Stored in local git config (expires nach Nutzung)  
 **Repo:** https://github.com/HagenRenye/netlify-bridge-page  
@@ -164,8 +244,8 @@ git push origin main # Auto-triggers Netlify build
 
 ---
 
-**Status:** ✅ READY FOR EXPANSION  
-**Next Step:** Add Figma changes → get_design_context → Integrate → Deploy
+**Status:** ✅ READY FOR PRODUCT INTEGRATION  
+**Next Step:** Hagen recherchiert Produkte + Affiliate Links → gibt mir Figma Update → ich integriere → Deploy
 
 ---
 

@@ -1,25 +1,17 @@
 # CLAUDE.md – H.M. Renyé: Spheres of Elegance
-
 **Projekt-Typ:** Luxury Affiliate Curation Platform  
 **Brand Name:** H.M. Renyé  
 **Sub-Brand:** Spheres of Elegance  
 **Model:** Pinterest → Website → Affiliate Links (Amazon + Awin)  
 **Status:** LIVE & Functional  
-**Last Updated:** 28.05.2026  
+**Last Updated:** 06.06.2026  
 **Deployment:** Netlify (auto-deploy via GitHub)  
 **Live URL:** https://cute-pasca-7b0419.netlify.app  
 **GitHub Repo:** https://github.com/HagenRenye/netlify-bridge-page
 
 ---
 
-## 💼 HAUPTTHEMA – Business Model
-
-### Strategy (CRITICAL)
-1. **Pinterest-Konform:** Nur visuelle Qualität, keine Spam
-2. **Brand Identity:** H.M. Renyé (Hauptname auf Website)
-3. **Sub-Brand:** Spheres of Elegance (unter Markennamen)
-4. **Monetisierung:** Amazon Associates + Awin Affiliate Network
-5. **Product Strategy:** Luxury Items handpicked pro Sphere
+## 💼 BUSINESS MODEL
 
 ### Revenue Flow
 ```
@@ -33,220 +25,195 @@ Commission on Sale
 ```
 
 ### Affiliate Networks
-- **Amazon Associates:** Standard Luxury Products
-- **Awin:** Specialty Luxury Brands (Bang & Olufsen, Infinity, etc.)
+- **Amazon Associates Tag:** `treasurewor0f-20`
+- **Awin:** Specialty Luxury Brands (Bang & Olufsen, etc.)
 
 ---
 
-## 📋 SESSION 28.05.2026 – Was wurde gemacht
+## 🏗️ AKTUELLER STAND – 06.06.2026
 
-### Problem gelöst
-- Hagen hatte das Design in **Figma** (H.M. Renyé – World of Treasure)
-- Versuchte 4h lang mit Gemini/Builder.io/Velo den Code zu extrahieren → Halluzinationen, Faden verloren
-- **Lösung:** Figma MCP Tool → direkt React-Code in 5 Minuten
+### Frontend: pxCode HTML (HEILIGER GRAL)
+Das Design-Original ist eine **statische HTML-Datei** (`spheres_elegance_merged.html`),
+gebaut in pxCode aus dem Figma-Design. Diese Datei ist das finale Frontend.
 
-### Was wurde gebaut
-1. **Figma → React-Code Extraction**
-   - `get_design_context` auf Figma File: `oYnm2miE4JTKjRMQV6mFFU`
-   - Gesamtes Design als Tailwind JSX kopiert
-   
-2. **App.tsx Updated**
-   - Ersetzte generic "Netlify Bridge" mit echtem Design
-   - Component: `WorldOfTreasureLiveYourDreams()`
-   - 6 Luxury Spheres: Kitchens, Outdoor, Fragrances, Timepieces, Audio, Interior & Art
-   
-3. **Design System**
-   - Tailwind Config: Gold (#C9A843) / Cream (#F5F0E8) / Dark (#080808)
-   - Custom Fonts: Jura, Jost, Cinzel, Cormorant Garamond
-   - All fonts from Google Fonts (importiert in index.css)
+**KEIN React mehr aktiv** — die Netlify-Seite läuft noch auf dem React-Build vom 28.05.,
+aber die Weiterentwicklung findet in der HTML-Datei statt.
 
-4. **Deployment**
-   - GitHub Push erfolgreich
-   - Netlify auto-deployed
-   - Live seit 28.05.2026 ~22:00 CET
+### Was in der HTML-Datei integriert wurde (06.06.2026)
+1. **9 Grid-Karten** mit IDs (`id="card-luxury-watches"` etc.) — clickbar
+2. **`id="gridContainer"`** auf dem Grid-Container
+3. **`id="detailContainer"`** — Div zwischen Grid und Footer
+4. **JavaScript-Logik** (DeepSeek-Basis, bereinigt):
+   - `spheresData[]` Array mit allen 9 Sphären
+   - `openSphere()` / `closeSphereAndResetUrl()` / `renderSphereDetail()`
+   - URL-Manipulation für Pinterest Deep-Links (`?sphere=fragrances`)
+   - Browser-Zurück-Button unterstützt
+5. **Produkt-Karussell** pro Sphere-Detail:
+   - 6 Platzhalter-Karten (werden durch echte Produkte ersetzt)
+   - Scroll mit ‹ › Pfeilen
+   - Hover-Zoom auf Produktbilder
+   - Klick → Affiliate-Link (target="_blank")
+
+### 9 Sphären & ihre JS-IDs
+| Nr | Titel            | JS-ID              |
+|----|------------------|--------------------|
+| 01 | Luxury Watches   | `luxury-watches`   |
+| 02 | Fine Jewelry     | `fine-jewelry`     |
+| 03 | Fragrances       | `fragrances`       |
+| 04 | Kitchen & Dining | `kitchen-dining`   |
+| 05 | Living Styles    | `living-styles`    |
+| 06 | Audio & Technology | `audio-technology` |
+| 07 | Fashion          | `fashion`          |
+| 08 | Leather Goods    | `leather-goods`    |
+| 09 | Art & Objects    | `art-objects`      |
 
 ---
 
-## 🔧 Tech Stack
+## 🗄️ SUPABASE — Datenbank-Integration (GEPLANT)
+
+### Status
+- Supabase-Datenbank von Hagen eingerichtet ✅
+- Claude.ai via MCP mit Supabase verbunden ✅
+- Integration in die HTML-Datei: **TODO**
+
+### Konzept: Sub-Sphären (4a, 4b, 4c...)
+
+Die Küchen-Sphäre (04) hat zu viele Produkt-Kategorien für eine einzige Ansicht.
+Gleiches wird für andere Sphären gelten. Lösung: **Sub-Sphären mit alphanumerischer Nummerierung**.
+
+**Beispiel Kitchen & Dining (04):**
+| Sub-ID | Kategorie         | Beispiel-Brands                    |
+|--------|-------------------|------------------------------------|
+| 04a    | Küchenmöbel       | Bulthaup, SieMatic, Poggenpohl    |
+| 04b    | Töpfe & Pfannen   | Le Creuset, Staub, Demeyere       |
+| 04c    | Messer            | Zwilling, Wüsthof, Global         |
+| 04d    | Geschirr          | Villeroy & Boch, Rosenthal        |
+| 04e    | Küchenmaschinen   | KitchenAid, Kenwood, Thermomix    |
+| 04f    | Kaffeemaschinen   | Jura, De'Longhi, Miele            |
+
+Dieses Prinzip gilt für alle 9 Sphären — Tiefe nur wo nötig.
+
+### Geplante Supabase-Tabellenstruktur (Vorschlag)
+
+```sql
+-- Haupt-Sphären
+CREATE TABLE spheres (
+  id        TEXT PRIMARY KEY,   -- 'kitchen-dining'
+  number    TEXT,               -- '04'
+  title     TEXT,
+  description TEXT,
+  hero_image TEXT,
+  sort_order INT
+);
+
+-- Sub-Sphären
+CREATE TABLE sub_spheres (
+  id          TEXT PRIMARY KEY,  -- 'kitchen-dining-coffee'
+  sphere_id   TEXT REFERENCES spheres(id),
+  sub_number  TEXT,              -- '04f'
+  title       TEXT,              -- 'Kaffeemaschinen'
+  description TEXT,
+  sort_order  INT
+);
+
+-- Produkte
+CREATE TABLE products (
+  id              TEXT PRIMARY KEY,
+  sub_sphere_id   TEXT REFERENCES sub_spheres(id),
+  sphere_id       TEXT REFERENCES spheres(id),
+  title           TEXT,
+  image_url       TEXT,
+  price_indication TEXT,
+  affiliate_link  TEXT,
+  affiliate_network TEXT,  -- 'amazon' | 'awin'
+  brand           TEXT,
+  is_active       BOOLEAN DEFAULT true,
+  sort_order      INT
+);
+```
+
+### Integration-Plan: Supabase → HTML
+Statt statischer `spheresData[]` im JS:
+1. Beim Seitenaufruf: Fetch von Supabase REST API
+2. `spheresData` dynamisch aus DB befüllen
+3. Sub-Sphären: eigene Navigationsebene im Detail-Panel
+4. Produkte: aus `products`-Tabelle per `sphere_id` / `sub_sphere_id`
+
+**API-Endpunkt-Schema:**
+```javascript
+const SUPABASE_URL = 'https://[project].supabase.co';
+const SUPABASE_ANON_KEY = '[anon-key]';
+
+// Sphären laden
+fetch(`${SUPABASE_URL}/rest/v1/spheres?order=sort_order`, {
+  headers: { 'apikey': SUPABASE_ANON_KEY }
+})
+
+// Produkte einer Sphäre laden
+fetch(`${SUPABASE_URL}/rest/v1/products?sphere_id=eq.kitchen-dining&is_active=eq.true`, {
+  headers: { 'apikey': SUPABASE_ANON_KEY }
+})
+```
+
+---
+
+## 🔧 TECH STACK
 
 ```
-Frontend:     React 19 + TypeScript
-Styling:      Tailwind CSS 3.4
-Build:        Vite 8.0
+Frontend:     Statisches HTML + Vanilla JS (pxCode Design)
+Datenbank:    Supabase (PostgreSQL)
 Deployment:   Netlify (GitHub Auto-Deploy)
-Fonts:        Google Fonts (Jura, Jost, Cinzel, Cormorant Garamond)
+Affiliate:    Amazon Associates + Awin
+Figma Source: oYnm2miE4JTKjRMQV6mFFU (Node 1:4642)
 ```
 
 ---
 
-## 📁 File Structure
+## 📋 NÄCHSTE SCHRITTE (Priorität)
+
+### Sofort
+- [ ] Supabase Tabellen anlegen (spheres / sub_spheres / products)
+- [ ] Sub-Sphären für Kitchen definieren (04a–04f)
+- [ ] Erste echte Produkte + Affiliate-Links in DB eintragen
+
+### Kurzfristig
+- [ ] HTML: statisches `spheresData[]` durch Supabase-Fetch ersetzen
+- [ ] Sub-Sphären-Navigation im Detail-Panel einbauen
+- [ ] Supabase Anon Key + URL in HTML integrieren
+
+### Mittelfristig
+- [ ] Alle 9 Sphären mit Sub-Sphären strukturieren
+- [ ] Pinterest Deep-Link auch auf Sub-Sphären ausweiten (`?sphere=kitchen-dining&sub=04f`)
+- [ ] Echte Hero-Bilder pro Sphäre (Cloudinary oder Supabase Storage)
+
+---
+
+## 🗝️ WORKFLOW FÜR NEUE SESSIONS
 
 ```
-netlify-bridge-page/
-├── src/
-│   ├── App.tsx              ← Main component (H.M. Renyé – Spheres of Elegance)
-│   ├── main.tsx
-│   └── index.css            ← Tailwind imports + custom CSS variables
-├── tailwind.config.ts       ← Luxury design tokens
-├── package.json
-├── vite.config.ts
-├── netlify.toml             ← Build config (auto-rebuild on push)
-└── CLAUDE.md                ← This file
+1. curl -s https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CLAUDE.md
+2. Kontext aus CLAUDE.md lesen
+3. Supabase MCP verfügbar → direkt Tabellen abfragen
+4. HTML-Datei: spheres_elegance_merged.html (lokal bei Hagen)
+5. Änderungen → Hagen pusht via GitHub Token
 ```
 
 ---
 
-## 🎨 Design Komponenten
-
-### Hero Section
-- Header: "H.M. Renyé – Spheres OF Luxury – Curated Excellence"
-- Subline: "Spheres OF Luxury"
-- Tagline: "One of the world's exceptional luxury discovered, curated, delivered to you"
-- Ornament: Gold divider lines + diamond
-- Scroll-hint: "Discover ↓"
-
-### 6 Luxury Spheres (Cards)
-Jede Sphere:
-- Nummering (01–06)
-- Titel (z.B. "Sphere of Luxury Kitchens")
-- Beschreibung (3–4 Zeilen)
-- "Discover →" CTA
-- Gold border + Dark background
-
-**Spheres:**
-1. **Luxury Kitchens** — Jura, De'Longhi, Le Creuset, Smeg, KitchenAid
-2. **Outdoor Living** — Teak, Napoleon, Weber, Designer Loungers, Fire Features
-3. **Fine Fragrances** — Tom Ford, Creed, Xerjoff, Amouage
-4. **Timepieces** — Longines, Tissot, Montblanc, Leather Goods
-5. **Premium Audio** — Bang & Olufsen, Bowers & Wilkins, Sonos
-6. **Interior & Art** — Designer Furniture, Wall Art, Candles, Objects d'art
-
-### Footer Section
-- Quote: "Luxury is not a price tag. It is the art of living beautifully and knowing exactly where to find it."
-- Ornaments: Gold dividers + diamond separators
-- Copyright: "© 2026 World Of Treasure · All rights reserved"
-
----
-
-## 🔗 Figma Source
-
-**File:** https://www.figma.com/design/oYnm2miE4JTKjRMQV6mFFU/world-of-treasure  
-**Current Node ID:** 1:4642 (Main frame)  
-**Status:** Live & editable by Hagen
-
----
-
-## 🚀 Workflow für zukünftige Sessions
-
-### Wenn Hagen Updates macht in Figma:
-
-1. **Update in Figma** (z.B. Karusell hinzufügen, Shop-Pages erstellen, Content updaten)
-2. **Sagt mir:** "CLAUDE – lies die CLAUDE.md in GitHub"
-3. **Ich mache:**
-   - CLAUDE.md lesen (weiß Projekt-Context)
-   - Figma Link (`oYnm2miE4JTKjRMQV6mFFU`) öffnen
-   - `get_design_context` auf neue/veränderte Frames
-   - React-Code rein
-   - Build + Push
-
-### Nächste geplante Features:
-
-**Phase 1: Product Integration**
-- [ ] Karusells pro Sphere (Product Showcase)
-- [ ] Affiliate Links (Amazon + Awin)
-- [ ] Product Grid mit Bilder + Produktinfos
-
-**Phase 2: Shop-Structure**
-- [ ] Sphere-Pages (Einzelne Landingpages pro Kategorie)
-- [ ] React Router (Navigation zwischen Spheres)
-- [ ] Pinterest-friendly Layout (mobile optimiert)
-
-**Phase 3: Pinterest Strategy**
-- [ ] Pinterest Pins generieren (pro Produkt/Sphere)
-- [ ] Pin-Templates (Figma)
-- [ ] Affiliate Link Tracking (UTM Parameters)
-
----
-
-## 🛍️ Spheres – Produktkategorien & Brands
-
-### Sphere 1: Luxury Kitchens
-**Brands:** Jura, De'Longhi, Le Creuset, Smeg, KitchenAid  
-**Fokus:** Premium Espresso Machines, Designer Cookware, Kitchen Tech
-
-### Sphere 2: Outdoor Living
-**Brands:** Teak, Napoleon, Weber, Bang & Olufsen Outdoor  
-**Fokus:** Grill Systems, Designer Loungers, Outdoor Audio, Fire Features
-
-### Sphere 3: Fine Fragrances
-**Brands:** Tom Ford, Creed, Xerjoff, Amouage  
-**Fokus:** Niche Perfumes, Luxury Candles, Fragrance Collections
-
-### Sphere 4: Timepieces
-**Brands:** Longines, Tissot, Montblanc, **Infinity**, Fine Leather Goods  
-**Fokus:** Swiss Watches, Designer Timepieces, Accessories
-
-### Sphere 5: Premium Audio
-**Brands:** **Bang & Olufsen, Infinity**, Bowers & Wilkins, Sonos  
-**Fokus:** High-End Speakers, Smart Home Audio, Audio Systems
-
-### Sphere 6: Interior & Art
-**Brands:** Designer Furniture, Art Suppliers, Luxury Decor  
-**Fokus:** Statement Pieces, Luxury Home Decor, Objects d'art
-
----
-
-## 📊 Affiliate Strategy
-
-**Netzwerke:**
-- Amazon Associates (Standard Luxury Products)
-- Awin (Specialty Brands: Bang & Olufsen, Infinity, Tom Ford, etc.)
-
-**Process:**
-1. Hagen recherchiert Produkte pro Sphere (Amazon + Awin)
-2. Erstellt Affiliate Links mit UTM Tracking
-3. Integrator in Website (Product Cards mit Link)
-4. Pinterest Pins → Website → Link → Commission
-
----
-
-**Token:** Stored in local git config (expires nach Nutzung)  
-**Repo:** https://github.com/HagenRenye/netlify-bridge-page  
-**Branch:** main (auto-deploy enabled)
-
----
-
-## 📝 Notes
-
-- **Tailwind Arbitrary Values:** Design nutzt `font-['FontName:Weight']` Syntax
-- **Fonts importiert via:** `@import url('https://fonts.googleapis.com/css2?family=...')`
-- **Dark Mode:** Config präpariert für dark mode, aber aktuell nur Dark-Design
-- **Responsive:** Desktop-first (Figma war 1276px width)
-- **Performance:** Gzip CSS 4.19kB, JS 63.73kB (optimal)
-
----
-
-## ⚙️ Build & Deploy Commands
+## ⚙️ BUILD & DEPLOY
 
 ```bash
-# Local Dev
-npm run dev          # Vite dev server (localhost:5173)
+# Netlify Deploy (React-Build, noch aktiv)
+git push origin main   # Auto-triggers Netlify build
 
-# Build
-npm run build        # Vite build → dist/
-
-# Preview
-npm run preview      # Preview built version locally
-
-# Deploy
-git push origin main # Auto-triggers Netlify build
+# HTML-Version: Datei direkt im Browser öffnen (file://)
+# Später: Netlify als Static Site (HTML direkt deployen)
 ```
 
 ---
 
-**Status:** ✅ READY FOR PRODUCT INTEGRATION  
-**Next Step:** Hagen recherchiert Produkte + Affiliate Links → gibt mir Figma Update → ich integriere → Deploy
+**Figma:** https://www.figma.com/design/oYnm2miE4JTKjRMQV6mFFU/world-of-treasure  
+**Supabase MCP:** verbunden via Claude.ai  
+**Amazon Tag:** `treasurewor0f-20`  
 
----
-
-Generated by Claude during session 28.05.2026 ~22:00 CET
+*Zuletzt aktualisiert: 06.06.2026 — Claude Session*

@@ -1,83 +1,25 @@
 # ═══════════════════════════════════════════════════════════════
-# netlify.toml – React + Vite Build Configuration
-# GitHub → Netlify Deploy Pipeline
+# netlify.toml – Static HTML Deploy
+# H.M. Renyé — Spheres of Elegance
 # ═══════════════════════════════════════════════════════════════
 
-# ── BUILD SETTINGS ──────────────────────────────────────────────
 [build]
-  command = "npm run build"
-  publish = "dist"
+  publish = "."
 
-# ── REDIRECTS ────────────────────────────────────────────────────
-# SPA fallback: all non-file requests → index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-# Applied to ALL pages. Optimizes speed, security, and affiliate
-# link compliance (no referrer leaking to Amazon/Awin).
 [[headers]]
   for = "/*"
   [headers.values]
-
-    # ── PERFORMANCE ───────────────────────────────────────────
-    # Aggressive caching for static assets (images, fonts, CSS)
-    # HTML itself is NOT cached (so changes deploy instantly)
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-    # ── SECURITY ──────────────────────────────────────────────
+    Cache-Control           = "public, max-age=0, must-revalidate"
     X-Frame-Options         = "DENY"
     X-Content-Type-Options  = "nosniff"
-    X-XSS-Protection        = "1; mode=block"
     Referrer-Policy         = "no-referrer"
-    # IMPORTANT: "no-referrer" means Amazon/Awin won't see your
-    # bridge-page URL as referrer — cleaner tracking + compliant.
 
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-    # ── CONTENT SECURITY POLICY ───────────────────────────────
-    # Allows: self + Amazon/Awin links. Blocks inline scripts/iframes.
-    # Adjust 'connect-src' if you add analytics later.
-    Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
-
-# ── CACHE HEADERS FOR STATIC ASSETS ────────────────────────────
-# Images, fonts, CSS: 1 year cache (fingerprinted by Netlify)
 [[headers]]
-  for = "*.jpg"
+  for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-[[headers]]
-  for = "*.jpeg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.webp"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.woff2"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# ── REDIRECTS (managed separately in _redirects for clarity) ────
-# _redirects file takes precedence for redirect rules.
-# netlify.toml redirects are a fallback.
-
-# ── 404 FALLBACK ────────────────────────────────────────────────
 [[redirects]]
   from   = "/*"
-  to     = "/404.html"
-  status = 404
+  to     = "/index.html"
+  status = 200

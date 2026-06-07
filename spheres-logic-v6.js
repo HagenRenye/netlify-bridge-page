@@ -1,26 +1,25 @@
 // ==============================================================
-// SPHERES OF ELEGANCE — LOGIK V6
-// Supabase Live + Sub-Sphären
+// SPHERES OF ELEGANCE — LOGIK V7
+// Fix: Navigation/Back, Mobile, Supabase Live
 // ==============================================================
 
 const SB_URL = 'https://gmibyowinqjfysgarhea.supabase.co';
 const SB_KEY = 'sb_publishable_DWGaYYEE_2xpLcMvgqs6kA_QA2TFHr9';
 
-// ── DATEN ─────────────────────────────────────────────────────
 const spheresData = [
-  { id: "luxury-watches",   title: "Luxury Watches",    description: "Time. Precision. Legacy. Where horological mastery meets sculptural beauty — each timepiece an heirloom engineered to outlast generations.",          crossSellingSpheres: ["fine-jewelry","leather-goods"],  heroImage: "https://picsum.photos/id/26/800/500",  products: [] },
-  { id: "fine-jewelry",     title: "Fine Jewelry",      description: "Crafted Brilliance. The quiet power of precious stones and noble metals — jewellery that speaks without words.",                                       crossSellingSpheres: ["luxury-watches","fragrances"],   heroImage: "https://picsum.photos/id/30/800/500",  products: [] },
-  { id: "fragrances",       title: "Fragrances",        description: "Invisible Luxury. The most intimate luxury — a signature scent that lingers long after you have left the room.",                                       crossSellingSpheres: ["fine-jewelry","fashion"],        heroImage: "https://picsum.photos/id/42/800/500",  products: [] },
-  { id: "kitchen-dining",   title: "Kitchen & Dining",  description: "The Art of Entertaining. Where culinary passion meets obsessive craftsmanship — tools and tableware for those who treat every meal as ceremony.",      crossSellingSpheres: ["living-styles","art-objects"],   heroImage: "https://picsum.photos/id/52/800/500",  products: [] },
-  { id: "living-styles",    title: "Living Styles",     description: "Spaces That Inspire. Sculptural furniture, luminous textiles, and objects that transform a house into a considered world.",                            crossSellingSpheres: ["audio-technology","art-objects"],heroImage: "https://picsum.photos/id/169/800/500", products: [] },
-  { id: "audio-technology", title: "Audio & Technology",description: "Sound Beyond Expectations. The symphony of acoustic perfection and timeless industrial design — where engineering transcends utility and becomes art.", crossSellingSpheres: ["living-styles","art-objects"],   heroImage: "https://picsum.photos/id/165/800/500", products: [] },
-  { id: "fashion",          title: "Fashion",           description: "Quiet Confidence. Curated fashion for those who understand that true style is never about noise — it is about presence.",                               crossSellingSpheres: ["leather-goods","fragrances"],    heroImage: "https://picsum.photos/id/96/800/500",  products: [] },
-  { id: "leather-goods",    title: "Leather Goods",     description: "Timeless Companions. Iconic bags, wallets and accessories crafted from the finest hides — objects that improve with every year of use.",               crossSellingSpheres: ["fashion","luxury-watches"],      heroImage: "https://picsum.photos/id/119/800/500", products: [] },
-  { id: "art-objects",      title: "Art & Objects",     description: "Curated Expressions. Collectible art, sculptural objects and rare editions for interiors that tell a story.",                                          crossSellingSpheres: ["living-styles","kitchen-dining"],heroImage: "https://picsum.photos/id/145/800/500", products: [] }
+  { id:'luxury-watches',   title:'Luxury Watches',    description:'Time. Precision. Legacy. Where horological mastery meets sculptural beauty — each timepiece an heirloom engineered to outlast generations.',           crossSellingSpheres:['fine-jewelry','leather-goods'],   heroImage:'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80' },
+  { id:'fine-jewelry',     title:'Fine Jewelry',      description:'Crafted Brilliance. The quiet power of precious stones and noble metals — jewellery that speaks without words.',                                        crossSellingSpheres:['luxury-watches','fragrances'],    heroImage:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80' },
+  { id:'fragrances',       title:'Fragrances',        description:'Invisible Luxury. The most intimate luxury — a signature scent that lingers long after you have left the room.',                                        crossSellingSpheres:['fine-jewelry','fashion'],         heroImage:'https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80' },
+  { id:'kitchen-dining',   title:'Kitchen & Dining',  description:'The Art of Entertaining. Where culinary passion meets obsessive craftsmanship — tools and tableware for those who treat every meal as ceremony.',       crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80' },
+  { id:'living-styles',    title:'Living Styles',     description:'Spaces That Inspire. Sculptural furniture, luminous textiles, and objects that transform a house into a considered world.',                             crossSellingSpheres:['audio-technology','art-objects'], heroImage:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+  { id:'audio-technology', title:'Audio & Technology',description:'Sound Beyond Expectations. The symphony of acoustic perfection and timeless industrial design — where engineering transcends utility and becomes art.',  crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&q=80' },
+  { id:'fashion',          title:'Fashion',           description:'Quiet Confidence. Curated fashion for those who understand that true style is never about noise — it is about presence.',                                crossSellingSpheres:['leather-goods','fragrances'],     heroImage:'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80' },
+  { id:'leather-goods',    title:'Leather Goods',     description:'Timeless Companions. Iconic bags, wallets and accessories crafted from the finest hides — objects that improve with every year of use.',                crossSellingSpheres:['fashion','luxury-watches'],       heroImage:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80' },
+  { id:'art-objects',      title:'Art & Objects',     description:'Curated Expressions. Collectible art, sculptural objects and rare editions for interiors that tell a story.',                                           crossSellingSpheres:['living-styles','kitchen-dining'], heroImage:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80' }
 ];
 
 const subSpheresMap = {
-  'luxury-watches':   [
+  'luxury-watches': [
     { id:'lw-mens',   num:'01a', title:'Herrenuhren',    desc:'Rolex, Patek Philippe, A. Lange & Söhne' },
     { id:'lw-womens', num:'01b', title:'Damenuhren',     desc:'Cartier, Chopard, Bulgari' },
     { id:'lw-sport',  num:'01c', title:'Sportuhren',     desc:'IWC, TAG Heuer, Breitling' }
@@ -46,220 +45,190 @@ const subSpheresMap = {
 };
 
 // ── STATE ─────────────────────────────────────────────────────
-let activeSphereId    = null;
-let highlightProductId = null;
-let activeSubId       = null;
+let activeSphereId = null;
+let activeSubId    = null;
 
 const gridContainer   = document.getElementById('gridContainer');
 const detailContainer = document.getElementById('detailContainer');
 
-// ── HELPERS ───────────────────────────────────────────────────
-function getSphereById(id) {
-  return spheresData.find(s => s.id === id);
-}
+function getSphereById(id) { return spheresData.find(s => s.id === id); }
 
-// ── SUPABASE PRODUKTE ─────────────────────────────────────────
-function loadSupabaseProducts(sphereId, subId) {
+// ── SUPABASE ──────────────────────────────────────────────────
+function loadProducts(sphereId, subId) {
   let params = `sphere_id=eq.${sphereId}&is_active=eq.true&order=sort_order`;
   if (subId) params += `&sub_sphere_id=eq.${subId}`;
   fetch(`${SB_URL}/rest/v1/Products?${params}`, {
-    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+    headers:{ 'apikey':SB_KEY, 'Authorization':`Bearer ${SB_KEY}` }
   })
-  .then(r => r.json())
+  .then(r => r.ok ? r.json() : [])
   .then(products => {
-    if (!products || products.length === 0) return;
-    const c = document.getElementById('carousel-' + sphereId);
+    if (!products || !products.length) return;
+    const c = document.getElementById('soe-carousel');
     if (!c) return;
     c.innerHTML = products.map(p => `
-      <a href="${p.affiliate_link || '#'}" target="_blank" rel="noopener sponsored"
-        style="flex:0 0 220px;text-decoration:none;color:#f9f6f0;display:block;">
-        <div style="width:220px;height:220px;overflow:hidden;background:rgba(255,255,255,0.04);margin-bottom:14px;">
-          <img src="${p.image_url || 'https://picsum.photos/seed/'+p.id+'/300/300'}"
-            style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;"
-            onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      <a href="${p.affiliate_link||'#'}" target="_blank" rel="noopener sponsored"
+        style="flex:0 0 200px;text-decoration:none;color:#f9f6f0;display:block;">
+        <div style="width:200px;height:200px;overflow:hidden;background:rgba(255,255,255,0.05);margin-bottom:12px;">
+          <img src="${p.image_url||''}" alt="${p.title}"
+            style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;"
+            onmouseover="this.style.transform='scale(1.06)'"
+            onmouseout="this.style.transform='scale(1)'">
         </div>
-        ${p.brand ? `<p style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 4px;">${p.brand}</p>` : ''}
-        <p style="font-size:0.78rem;letter-spacing:1px;margin:0 0 5px;color:#f9f6f0;line-height:1.4;">${p.title}</p>
-        <p style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.4);margin:0;">
-          ${p.price ? '€' + parseFloat(p.price).toFixed(2) : (p.price_indication || 'Premium Selection')}
+        ${p.brand?`<p style="font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.38);margin:0 0 4px;">${p.brand}</p>`:''}
+        <p style="font-size:0.78rem;margin:0 0 4px;color:#f9f6f0;line-height:1.4;">${p.title}</p>
+        <p style="font-size:0.66rem;letter-spacing:1px;text-transform:uppercase;color:rgba(249,246,240,0.42);margin:0;">
+          ${p.price ? '€\u202f'+parseFloat(p.price).toLocaleString('de-DE',{minimumFractionDigits:0}) : (p.price_indication||'Premium Selection')}
         </p>
       </a>`).join('');
   })
-  .catch(() => {});
-}
-
-// ── SUB-SPHÄRE WECHSELN ───────────────────────────────────────
-function switchSubSphere(sphereId, subId) {
-  activeSubId = subId;
-  renderSphereDetail(sphereId, null);
-  loadSupabaseProducts(sphereId, subId);
-  detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  .catch(()=>{});
 }
 
 // ── KARTEN ────────────────────────────────────────────────────
 function initCardEvents() {
   spheresData.forEach(sphere => {
     const card = document.getElementById('card-' + sphere.id);
-    if (card) {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', () => openSphere(sphere.id, null));
-    }
+    if (!card) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => openSphere(sphere.id));
   });
 }
 
-// ── SPHERE ÖFFNEN ─────────────────────────────────────────────
-function openSphere(sphereId, productId) {
-  if (!sphereId || !getSphereById(sphereId)) return;
-  activeSphereId    = sphereId;
-  highlightProductId = productId || null;
-  activeSubId       = null;
-
-  const subs = subSpheresMap[sphereId] || [];
-  if (subs.length > 0) activeSubId = subs[0].id;
-
-  renderSphereDetail(sphereId, highlightProductId);
-
-  let newUrl = window.location.pathname + '?sphere=' + sphereId;
-  if (productId) newUrl += '&product=' + productId;
-  window.history.pushState({ sphere: sphereId, product: productId }, '', newUrl);
-
-  detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  loadSupabaseProducts(sphereId, activeSubId);
-}
-
-// ── DETAIL RENDERN ────────────────────────────────────────────
-function renderSphereDetail(sphereId, highlightProdId) {
+// ── ÖFFNEN ────────────────────────────────────────────────────
+function openSphere(sphereId, subId) {
   const sphere = getSphereById(sphereId);
   if (!sphere) return;
+  activeSphereId = sphereId;
+  const subs = subSpheresMap[sphereId] || [];
+  activeSubId = subId || (subs.length ? subs[0].id : null);
+  renderDetail();
+  history.pushState({ sphere: sphereId, sub: activeSubId }, '', '?sphere=' + sphereId + (activeSubId ? '&sub=' + activeSubId : ''));
+  detailContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+  loadProducts(sphereId, activeSubId);
+}
 
-  const subs       = subSpheresMap[sphereId] || [];
-  const currentSub = activeSubId || (subs.length > 0 ? subs[0].id : null);
-  const activeSub  = subs.find(s => s.id === currentSub) || null;
+function switchSub(subId) {
+  activeSubId = subId;
+  renderDetail();
+  history.replaceState({ sphere: activeSphereId, sub: subId }, '', '?sphere=' + activeSphereId + '&sub=' + subId);
+  detailContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+  loadProducts(activeSphereId, subId);
+}
 
-  const placeholders = [
-    { prodId:'p1', prodTitle:'Featured Selection I',   prodImage:`https://picsum.photos/seed/${sphereId}1/300/300`, prodPriceIndication:'Premium Selection',  affiliateLink:'#' },
-    { prodId:'p2', prodTitle:'Featured Selection II',  prodImage:`https://picsum.photos/seed/${sphereId}2/300/300`, prodPriceIndication:'Exclusive Edition',  affiliateLink:'#' },
-    { prodId:'p3', prodTitle:'Featured Selection III', prodImage:`https://picsum.photos/seed/${sphereId}3/300/300`, prodPriceIndication:'Iconic Piece',        affiliateLink:'#' },
-    { prodId:'p4', prodTitle:'Featured Selection IV',  prodImage:`https://picsum.photos/seed/${sphereId}4/300/300`, prodPriceIndication:"Collector's Choice",  affiliateLink:'#' },
-    { prodId:'p5', prodTitle:'Featured Selection V',   prodImage:`https://picsum.photos/seed/${sphereId}5/300/300`, prodPriceIndication:'Limited Edition',     affiliateLink:'#' },
-    { prodId:'p6', prodTitle:'Featured Selection VI',  prodImage:`https://picsum.photos/seed/${sphereId}6/300/300`, prodPriceIndication:'Signature Series',    affiliateLink:'#' },
-  ];
+function closeSphere() {
+  activeSphereId = null;
+  activeSubId    = null;
+  detailContainer.innerHTML = '';
+  history.pushState(null, '', window.location.pathname);
+  gridContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+}
 
-  const carouselId = 'carousel-' + sphereId;
+// ── RENDER ────────────────────────────────────────────────────
+function renderDetail() {
+  const sphere = getSphereById(activeSphereId);
+  if (!sphere) return;
+  const subs      = subSpheresMap[activeSphereId] || [];
+  const activeSub = subs.find(s => s.id === activeSubId) || null;
+
+  const placeholders = Array.from({length:4}, (_,i) => ({
+    title: ['Premium Selection','Exclusive Edition','Iconic Piece','Signature Series'][i],
+    img:   `https://picsum.photos/seed/${activeSphereId}${i}/300/300`
+  }));
 
   detailContainer.innerHTML = `
-    <div style="max-width:1277px;margin:0 auto;padding:60px 40px 70px;font-family:'Inter',sans-serif;color:#f9f6f0;">
+<div style="max-width:1200px;margin:0 auto;padding:48px 24px 64px;font-family:'Inter',sans-serif;color:#f9f6f0;box-sizing:border-box;">
 
-      <!-- HEADER -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
-        <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;letter-spacing:2px;color:#f9f6f0;margin:0;text-transform:uppercase;">${sphere.title}</h2>
-        <button onclick="closeSphereAndResetUrl()" style="background:transparent;border:1px solid rgba(249,246,240,0.3);color:#f9f6f0;padding:10px 24px;font-family:'Inter',sans-serif;font-size:0.8rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;"
-          onmouseover="this.style.borderColor='#f9f6f0'" onmouseout="this.style.borderColor='rgba(249,246,240,0.3)'">
-          ← Back
-        </button>
-      </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:16px;">
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:400;letter-spacing:2px;color:#f9f6f0;margin:0;text-transform:uppercase;">
+      ${sphere.title}
+    </h2>
+    <button onclick="closeSphere()" style="background:transparent;border:1px solid rgba(249,246,240,0.35);color:#f9f6f0;padding:9px 22px;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;white-space:nowrap;-webkit-tap-highlight-color:transparent;">
+      ← Back
+    </button>
+  </div>
 
-      <!-- HERO + DESCRIPTION -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:48px;">
-        <img src="${sphere.heroImage}" alt="${sphere.title}" style="width:100%;height:300px;object-fit:cover;display:block;">
-        <div>
-          <p style="font-size:1.05rem;line-height:1.9;color:rgba(249,246,240,0.8);margin:0 0 36px;">${sphere.description}</p>
-          ${sphere.crossSellingSpheres && sphere.crossSellingSpheres.length > 0 ? `
-          <div>
-            <p style="font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 14px;">Explore Also</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              ${sphere.crossSellingSpheres.map(id => {
-                const s = getSphereById(id);
-                return s ? `<button onclick="openSphere('${id}',null)" style="background:transparent;border:1px solid rgba(249,246,240,0.18);color:rgba(249,246,240,0.65);padding:7px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;"
-                  onmouseover="this.style.borderColor='rgba(249,246,240,0.55)';this.style.color='#f9f6f0'"
-                  onmouseout="this.style.borderColor='rgba(249,246,240,0.18)';this.style.color='rgba(249,246,240,0.65)'">${s.title}</button>` : '';
-              }).join('')}
-            </div>
-          </div>` : ''}
-        </div>
-      </div>
-
-      <!-- SUB-SPHÄREN TABS -->
-      ${subs.length > 0 ? `
-      <div style="margin-bottom:36px;">
-        <p style="font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.32);margin:0 0 14px;">Category</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          ${subs.map(sub => `
-            <button onclick="switchSubSphere('${sphereId}','${sub.id}')" style="
-              background:${sub.id===currentSub ? 'rgba(249,246,240,0.1)' : 'transparent'};
-              border:1px solid ${sub.id===currentSub ? 'rgba(249,246,240,0.55)' : 'rgba(249,246,240,0.2)'};
-              color:${sub.id===currentSub ? '#f9f6f0' : 'rgba(249,246,240,0.5)'};
-              padding:7px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;
-              letter-spacing:2px;cursor:pointer;text-transform:uppercase;">
-              ${sub.num}&nbsp;${sub.title}
-            </button>`).join('')}
-        </div>
-        ${activeSub ? `<p style="font-size:0.78rem;color:rgba(249,246,240,0.4);margin:12px 0 0;">${activeSub.desc}</p>` : ''}
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;margin-bottom:40px;">
+    <img src="${sphere.heroImage}" alt="${sphere.title}"
+      style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;">
+    <div>
+      <p style="font-size:clamp(0.9rem,2vw,1rem);line-height:1.9;color:rgba(249,246,240,0.78);margin:0 0 28px;">
+        ${sphere.description}
+      </p>
+      ${sphere.crossSellingSpheres && sphere.crossSellingSpheres.length ? `
+      <p style="font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.32);margin:0 0 12px;">Explore Also</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${sphere.crossSellingSpheres.map(id => {
+          const s = getSphereById(id);
+          return s ? `<button onclick="openSphere('${id}')" style="background:transparent;border:1px solid rgba(249,246,240,0.18);color:rgba(249,246,240,0.62);padding:6px 14px;font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">${s.title}</button>` : '';
+        }).join('')}
       </div>` : ''}
-
-      <!-- TRENNLINIE -->
-      <div style="width:60px;height:1px;background:rgba(249,246,240,0.2);margin-bottom:40px;"></div>
-
-      <!-- PRODUKT-KARUSSELL -->
-      <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;">
-        <p style="font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0;">Curated Selection</p>
-        <div style="display:flex;gap:10px;">
-          <button onclick="scrollCarousel('${carouselId}',-1)" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:#f9f6f0;width:36px;height:36px;cursor:pointer;font-size:1rem;"
-            onmouseover="this.style.borderColor='rgba(249,246,240,0.6)'" onmouseout="this.style.borderColor='rgba(249,246,240,0.2)'">‹</button>
-          <button onclick="scrollCarousel('${carouselId}',1)" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:#f9f6f0;width:36px;height:36px;cursor:pointer;font-size:1rem;"
-            onmouseover="this.style.borderColor='rgba(249,246,240,0.6)'" onmouseout="this.style.borderColor='rgba(249,246,240,0.2)'">›</button>
-        </div>
-      </div>
-
-      <div id="${carouselId}" style="display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:12px;scrollbar-width:none;-ms-overflow-style:none;">
-        ${placeholders.map(p => `
-        <a href="${p.affiliateLink}" target="_blank" rel="noopener" style="flex:0 0 220px;text-decoration:none;color:#f9f6f0;display:block;">
-          <div style="width:220px;height:220px;overflow:hidden;background:rgba(255,255,255,0.04);margin-bottom:14px;">
-            <img src="${p.prodImage}" alt="${p.prodTitle}"
-              style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;display:block;"
-              onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
-          </div>
-          <p style="font-size:0.78rem;letter-spacing:1px;margin:0 0 5px;color:#f9f6f0;line-height:1.4;">${p.prodTitle}</p>
-          <p style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.4);margin:0;">${p.prodPriceIndication}</p>
-        </a>`).join('')}
-      </div>
-
     </div>
-    <style>#${carouselId}::-webkit-scrollbar{display:none;}</style>
-  `;
+  </div>
+
+  ${subs.length ? `
+  <div style="margin-bottom:32px;">
+    <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 12px;">Category</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      ${subs.map(sub => `
+        <button onclick="switchSub('${sub.id}')" style="
+          background:${sub.id===activeSubId?'rgba(249,246,240,0.1)':'transparent'};
+          border:1px solid ${sub.id===activeSubId?'rgba(249,246,240,0.55)':'rgba(249,246,240,0.18)'};
+          color:${sub.id===activeSubId?'#f9f6f0':'rgba(249,246,240,0.48)'};
+          padding:7px 14px;font-family:'Inter',sans-serif;font-size:0.7rem;
+          letter-spacing:1px;cursor:pointer;text-transform:uppercase;
+          -webkit-tap-highlight-color:transparent;">
+          ${sub.num}&thinsp;${sub.title}
+        </button>`).join('')}
+    </div>
+    ${activeSub ? `<p style="font-size:0.76rem;color:rgba(249,246,240,0.38);margin:10px 0 0;">${activeSub.desc}</p>` : ''}
+  </div>` : ''}
+
+  <div style="width:48px;height:1px;background:rgba(249,246,240,0.15);margin-bottom:28px;"></div>
+
+  <p style="font-size:0.64rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 18px;">Curated Selection</p>
+
+  <div id="soe-carousel" style="display:flex;gap:18px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;-ms-overflow-style:none;">
+    ${placeholders.map(p => `
+      <div style="flex:0 0 180px;">
+        <div style="width:180px;height:180px;background:rgba(255,255,255,0.05);margin-bottom:10px;">
+          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.5;">
+        </div>
+        <p style="font-size:0.72rem;color:rgba(249,246,240,0.4);margin:0;text-align:center;">Loading…</p>
+      </div>`).join('')}
+  </div>
+
+</div>
+<style>
+  #soe-carousel::-webkit-scrollbar{display:none;}
+  @media(max-width:600px){
+    #soe-carousel > a, #soe-carousel > div { flex:0 0 150px !important; }
+    #soe-carousel > a > div, #soe-carousel > div > div { width:150px !important; height:150px !important; }
+  }
+</style>`;
 }
 
-// ── SCROLL + CLOSE ────────────────────────────────────────────
-function scrollCarousel(id, dir) {
-  const el = document.getElementById(id);
-  if (el) el.scrollBy({ left: dir * 480, behavior: 'smooth' });
-}
-
-function closeSphereAndResetUrl() {
-  activeSphereId = null;
-  highlightProductId = null;
-  activeSubId = null;
-  detailContainer.innerHTML = '';
-  window.history.pushState(null, '', window.location.pathname);
-  gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ── INIT ──────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  initCardEvents();
-  const urlParams   = new URLSearchParams(window.location.search);
-  const sphereParam = urlParams.get('sphere');
-  const productParam = urlParams.get('product');
-  if (sphereParam && getSphereById(sphereParam)) {
-    openSphere(sphereParam, productParam);
+// ── NAVIGATION (Back-Button Handy-Fix) ───────────────────────
+window.addEventListener('popstate', (e) => {
+  if (e.state && e.state.sphere) {
+    const sphere = getSphereById(e.state.sphere);
+    if (!sphere) return;
+    activeSphereId = e.state.sphere;
+    activeSubId    = e.state.sub || null;
+    renderDetail();
+    loadProducts(activeSphereId, activeSubId);
+    detailContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+  } else {
+    activeSphereId = null;
+    activeSubId    = null;
+    detailContainer.innerHTML = '';
+    if (gridContainer) gridContainer.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 });
 
-window.addEventListener('popstate', (e) => {
-  if (e.state && e.state.sphere) {
-    renderSphereDetail(e.state.sphere, e.state.product);
-    detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    detailContainer.innerHTML = '';
-  }
+// ── START ─────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  initCardEvents();
+  const p  = new URLSearchParams(window.location.search);
+  const sp = p.get('sphere');
+  if (sp && getSphereById(sp)) openSphere(sp, p.get('sub'));
 });

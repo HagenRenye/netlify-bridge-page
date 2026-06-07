@@ -895,20 +895,23 @@ function loadProducts(sphereId, subId) {
     const c = document.getElementById('soe-carousel');
     if (!c) return;
     c.innerHTML = products.map(p => `
-      <a href="${p.affiliate_link||'#'}" target="_blank" rel="noopener sponsored"
-        style="flex:0 0 200px;text-decoration:none;color:#f9f6f0;display:block;">
-        <div style="width:200px;height:200px;overflow:hidden;background:rgba(255,255,255,0.05);margin-bottom:12px;">
+      <div onclick='openProduct(${JSON.stringify(p).replace(/'/g,"\'")})'
+        style="flex:0 0 260px;cursor:pointer;color:#f9f6f0;display:block;-webkit-tap-highlight-color:transparent;">
+        <div style="width:260px;height:280px;overflow:hidden;background:rgba(255,255,255,0.05);margin-bottom:14px;position:relative;">
           <img src="${p.image_url||''}" alt="${p.title}"
-            style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;"
-            onmouseover="this.style.transform='scale(1.06)'"
+            style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
+            onmouseover="this.style.transform='scale(1.05)'"
             onmouseout="this.style.transform='scale(1)'">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(11,43,27,0.85));font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.7);">
+            Discover →
+          </div>
         </div>
-        ${p.brand?`<p style="font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.38);margin:0 0 4px;">${p.brand}</p>`:''}
-        <p style="font-size:0.78rem;margin:0 0 4px;color:#f9f6f0;line-height:1.4;">${p.title}</p>
-        <p style="font-size:0.66rem;letter-spacing:1px;text-transform:uppercase;color:rgba(249,246,240,0.42);margin:0;">
+        ${p.brand?`<p style="font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.38);margin:0 0 5px;">${p.brand}</p>`:''}
+        <p style="font-size:0.85rem;margin:0 0 5px;color:#f9f6f0;line-height:1.4;">${p.title}</p>
+        <p style="font-size:0.78rem;font-family:'Playfair Display',serif;color:rgba(249,246,240,0.7);margin:0;">
           ${p.price ? '€\u202f'+parseFloat(p.price).toLocaleString('de-DE',{minimumFractionDigits:0}) : (p.price_indication||'Premium Selection')}
         </p>
-      </a>`).join('');
+      </div>`).join('');
   })
   .catch(()=>{});
 }
@@ -1016,13 +1019,13 @@ function renderDetail() {
 
   <p style="font-size:0.64rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 18px;">Curated Selection</p>
 
-  <div id="soe-carousel" style="display:flex;gap:18px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;-ms-overflow-style:none;">
+  <div id="soe-carousel" style="display:flex;gap:20px;overflow-x:auto;padding-bottom:16px;scrollbar-width:none;-ms-overflow-style:none;">
     ${placeholders.map(p => `
-      <div style="flex:0 0 180px;">
-        <div style="width:180px;height:180px;background:rgba(255,255,255,0.05);margin-bottom:10px;">
-          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.5;">
+      <div style="flex:0 0 260px;">
+        <div style="width:260px;height:280px;background:rgba(255,255,255,0.05);margin-bottom:14px;display:flex;align-items:center;justify-content:center;">
+          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.3;">
         </div>
-        <p style="font-size:0.72rem;color:rgba(249,246,240,0.4);margin:0;text-align:center;">Loading…</p>
+        <p style="font-size:0.72rem;color:rgba(249,246,240,0.3);margin:0;letter-spacing:2px;text-transform:uppercase;">Loading…</p>
       </div>`).join('')}
   </div>
 
@@ -1061,6 +1064,113 @@ window.addEventListener('DOMContentLoaded', () => {
   const sp = p.get('sphere');
   if (sp && getSphereById(sp)) openSphere(sp, p.get('sub'));
 });
+
+// ── PRODUKT-DETAIL OVERLAY ────────────────────────────────────
+function openProduct(p) {
+  // Overlay erstellen
+  let overlay = document.getElementById('soe-product-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'soe-product-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  overlay.style.cssText = `
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(11,43,27,0.97);z-index:9999;
+    overflow-y:auto;display:flex;align-items:flex-start;
+    justify-content:center;padding:0;box-sizing:border-box;
+    animation:soe-fadein 0.3s ease;
+  `;
+
+  overlay.innerHTML = `
+    <style>
+      @keyframes soe-fadein { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+      #soe-product-overlay::-webkit-scrollbar{width:4px;}
+      #soe-product-overlay::-webkit-scrollbar-thumb{background:rgba(249,246,240,0.15);}
+    </style>
+    <div style="max-width:900px;width:100%;padding:32px 24px 64px;box-sizing:border-box;font-family:'Inter',sans-serif;color:#f9f6f0;">
+
+      <!-- HEADER -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+        <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0;">
+          H.M. Renyé &thinsp;·&thinsp; Curated Selection
+        </p>
+        <button onclick="closeProduct()" style="background:transparent;border:1px solid rgba(249,246,240,0.25);color:#f9f6f0;padding:8px 20px;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+          ← Back
+        </button>
+      </div>
+
+      <!-- PRODUKT LAYOUT -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:48px;">
+        <div>
+          <img src="${p.image_url||''}" alt="${p.title}"
+            style="width:100%;aspect-ratio:1;object-fit:cover;display:block;margin-bottom:16px;">
+          ${p.brand ? `<p style="font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 4px;">${p.brand}</p>` : ''}
+          <p style="font-size:1.1rem;color:#f9f6f0;margin:0 0 8px;line-height:1.4;">${p.title}</p>
+          <p style="font-size:1.3rem;font-family:'Playfair Display',serif;color:#f9f6f0;margin:0;">
+            ${p.price ? '€\u202f'+parseFloat(p.price).toLocaleString('de-DE',{minimumFractionDigits:0}) : (p.price_indication||'')}
+          </p>
+        </div>
+        <div>
+          ${p.tagline ? `
+          <p style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,1.7rem);font-weight:400;font-style:italic;color:#f9f6f0;margin:0 0 28px;line-height:1.5;">
+            "${p.tagline}"
+          </p>` : ''}
+          ${p.description ? `
+          <p style="font-size:0.95rem;line-height:1.9;color:rgba(249,246,240,0.75);margin:0 0 36px;">
+            ${p.description}
+          </p>` : ''}
+
+          <!-- CTA -->
+          <a href="${p.affiliate_link||'#'}" target="_blank" rel="noopener sponsored"
+            style="display:block;background:#f9f6f0;color:#0B2B1B;text-align:center;padding:16px 32px;font-family:'Inter',sans-serif;font-size:0.82rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;margin-bottom:12px;-webkit-tap-highlight-color:transparent;">
+            Entdecken &amp; Kaufen →
+          </a>
+          <p style="font-size:0.62rem;letter-spacing:1px;color:rgba(249,246,240,0.28);text-align:center;margin:0 0 32px;">
+            Weiterleitung zum verifizierten Händler · Affiliate-Link
+          </p>
+
+          <!-- WEITER STÖBERN -->
+          <div style="border-top:1px solid rgba(249,246,240,0.12);padding-top:24px;">
+            <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 14px;">
+              Weiter stöbern
+            </p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button onclick="closeProduct()" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+                ← Zurück zur Sphäre
+              </button>
+              ${activeSphereId && sphere_crossSell() ? sphere_crossSell().map(s=>`
+              <button onclick="closeProduct();openSphere('${s.id}')" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+                ${s.title}
+              </button>`).join('') : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  // Mobile: einspaltig
+  const style = document.createElement('style');
+  style.textContent = '@media(max-width:640px){#soe-product-overlay [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}}';
+  overlay.appendChild(style);
+
+  document.body.style.overflow = 'hidden';
+  history.pushState({ product: p.id, sphere: activeSphereId, sub: activeSubId }, '', '?sphere=' + activeSphereId + (activeSubId ? '&sub='+activeSubId : '') + '&product=' + p.id);
+}
+
+function sphere_crossSell() {
+  const s = getSphereById(activeSphereId);
+  if (!s || !s.crossSellingSpheres) return [];
+  return s.crossSellingSpheres.map(id => getSphereById(id)).filter(Boolean).slice(0,2);
+}
+
+function closeProduct() {
+  const overlay = document.getElementById('soe-product-overlay');
+  if (overlay) overlay.remove();
+  document.body.style.overflow = '';
+  history.back();
+}
 
 </script>
 

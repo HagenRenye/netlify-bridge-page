@@ -226,3 +226,54 @@ curl -s https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CL
 # 4. V5 HTML ist Basis — spheres_elegance_merged_5.html
 # JS-Block (Zeile ~829 bis ~1125) ersetzen mit spheres-logic-v6.js
 ```
+
+---
+
+## 🔗 AWIN STATUS (08.06.2026)
+
+**Publisher-ID:** 2909169 (nexus_publishing)
+
+### Zugelassen:
+| Programm | Awin-ID | Brands | Link-Format |
+|----------|---------|--------|-------------|
+| Watches Of USA | 116479 | Omega, TAG Heuer, Cartier, Breitling, IWC, Zenith, Longines | awinmid=116479 |
+| Watch Home Awin First | 51893 | Weitere Uhren | awinmid=51893 |
+
+### Ausstehend (Bewerbung läuft):
+Michael Kors EU, Chronext FR/CH/AT/DE, House of Watches, Niche Jewellery, Elisabetta Franchi IT, Marc Antoine Barrois (US), Douglas EE, Aurélien Smart Luxury NL
+
+### Awin-Link Baukasten:
+```
+https://www.awin1.com/cread.php?awinmid=[ADVERTISER-ID]&awinaffid=2909169&clickref=[PRODUKT-ID]&p=[ENCODED-URL]
+```
+
+---
+
+## 🌍 SPRACHMODUL (GEPLANT)
+
+**Zielsprachen:** EN (Basis), IT, FR, ES
+**Zielmarkt:** Weltweiter Versand, englischsprachige Seite
+**Ansatz:** i18n-Objekt im JS, Sprachumschalter im Header
+
+### Struktur:
+```javascript
+const i18n = {
+  en: { discover: "Discover your Sphere", back: "← Back", ... },
+  it: { discover: "Scopri la tua Sfera", back: "← Indietro", ... },
+  fr: { discover: "Découvrez votre Sphère", back: "← Retour", ... },
+  es: { discover: "Descubre tu Esfera", back: "← Volver", ... }
+}
+```
+
+**TODO:** Sprachumschalter im HTML-Header einbauen (4 Buttons EN/IT/FR/ES)
+**TODO:** Alle statischen Texte durch i18n-Keys ersetzen
+**TODO:** Sphären-Beschreibungen in 4 Sprachen in Supabase (Spalten: desc_en, desc_it, desc_fr, desc_es)
+
+---
+
+## ⌚ UHREN PORTFOLIO (13 Produkte — Watches Of USA Awin 116479)
+
+Herren: Omega Seamaster (2x), Breitling Navitimer, IWC Portugieser, Zenith El Primero, Longines Master
+Damen: Cartier Tank Must, Cartier Ballon Bleu, Omega Constellation
+Sport: TAG Heuer (2x), Breitling Superocean
+Alle bis max. $6.900 — bewusste Entscheidung (Lamborghini-Kunden Einstiegsbereich)

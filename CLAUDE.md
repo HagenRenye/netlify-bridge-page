@@ -1,219 +1,228 @@
 # CLAUDE.md – H.M. Renyé: Spheres of Elegance
-**Projekt-Typ:** Luxury Affiliate Curation Platform  
-**Brand Name:** H.M. Renyé  
-**Sub-Brand:** Spheres of Elegance  
-**Model:** Pinterest → Website → Affiliate Links (Amazon + Awin)  
-**Status:** LIVE & Functional  
-**Last Updated:** 06.06.2026  
-**Deployment:** Netlify (auto-deploy via GitHub)  
-**Live URL:** https://cute-pasca-7b0419.netlify.app  
-**GitHub Repo:** https://github.com/HagenRenye/netlify-bridge-page
+**Stand:** 08.06.2026 | **Deployment:** LIVE  
+**URL:** https://cute-pasca-7b0419.netlify.app  
+**GitHub:** HagenRenye/netlify-bridge-page  
+**Supabase:** gmibyowinqjfysgarhea  
 
 ---
 
-## 💼 BUSINESS MODEL
+## 🏗️ TECH STACK
 
-### Revenue Flow
 ```
-Pinterest Pin (Visual High Quality)
-        ↓
-Website (H.M. Renyé – Spheres of Elegance)
-        ↓
-Product Link (Amazon Affiliate / Awin)
-        ↓
-Commission on Sale
-```
-
-### Affiliate Networks
-- **Amazon Associates Tag:** `treasurewor0f-20`
-- **Awin:** Specialty Luxury Brands (Bang & Olufsen, etc.)
-
----
-
-## 🏗️ AKTUELLER STAND – 06.06.2026
-
-### Frontend: pxCode HTML (HEILIGER GRAL)
-Das Design-Original ist eine **statische HTML-Datei** (`spheres_elegance_merged.html`),
-gebaut in pxCode aus dem Figma-Design. Diese Datei ist das finale Frontend.
-
-**KEIN React mehr aktiv** — die Netlify-Seite läuft noch auf dem React-Build vom 28.05.,
-aber die Weiterentwicklung findet in der HTML-Datei statt.
-
-### Was in der HTML-Datei integriert wurde (06.06.2026)
-1. **9 Grid-Karten** mit IDs (`id="card-luxury-watches"` etc.) — clickbar
-2. **`id="gridContainer"`** auf dem Grid-Container
-3. **`id="detailContainer"`** — Div zwischen Grid und Footer
-4. **JavaScript-Logik** (DeepSeek-Basis, bereinigt):
-   - `spheresData[]` Array mit allen 9 Sphären
-   - `openSphere()` / `closeSphereAndResetUrl()` / `renderSphereDetail()`
-   - URL-Manipulation für Pinterest Deep-Links (`?sphere=fragrances`)
-   - Browser-Zurück-Button unterstützt
-5. **Produkt-Karussell** pro Sphere-Detail:
-   - 6 Platzhalter-Karten (werden durch echte Produkte ersetzt)
-   - Scroll mit ‹ › Pfeilen
-   - Hover-Zoom auf Produktbilder
-   - Klick → Affiliate-Link (target="_blank")
-
-### 9 Sphären & ihre JS-IDs
-| Nr | Titel            | JS-ID              |
-|----|------------------|--------------------|
-| 01 | Luxury Watches   | `luxury-watches`   |
-| 02 | Fine Jewelry     | `fine-jewelry`     |
-| 03 | Fragrances       | `fragrances`       |
-| 04 | Kitchen & Dining | `kitchen-dining`   |
-| 05 | Living Styles    | `living-styles`    |
-| 06 | Audio & Technology | `audio-technology` |
-| 07 | Fashion          | `fashion`          |
-| 08 | Leather Goods    | `leather-goods`    |
-| 09 | Art & Objects    | `art-objects`      |
-
----
-
-## 🗄️ SUPABASE — Datenbank-Integration (GEPLANT)
-
-### Status
-- Supabase-Datenbank von Hagen eingerichtet ✅
-- Claude.ai via MCP mit Supabase verbunden ✅
-- Integration in die HTML-Datei: **TODO**
-
-### Konzept: Sub-Sphären (4a, 4b, 4c...)
-
-Die Küchen-Sphäre (04) hat zu viele Produkt-Kategorien für eine einzige Ansicht.
-Gleiches wird für andere Sphären gelten. Lösung: **Sub-Sphären mit alphanumerischer Nummerierung**.
-
-**Beispiel Kitchen & Dining (04):**
-| Sub-ID | Kategorie         | Beispiel-Brands                    |
-|--------|-------------------|------------------------------------|
-| 04a    | Küchenmöbel       | Bulthaup, SieMatic, Poggenpohl    |
-| 04b    | Töpfe & Pfannen   | Le Creuset, Staub, Demeyere       |
-| 04c    | Messer            | Zwilling, Wüsthof, Global         |
-| 04d    | Geschirr          | Villeroy & Boch, Rosenthal        |
-| 04e    | Küchenmaschinen   | KitchenAid, Kenwood, Thermomix    |
-| 04f    | Kaffeemaschinen   | Jura, De'Longhi, Miele            |
-
-Dieses Prinzip gilt für alle 9 Sphären — Tiefe nur wo nötig.
-
-### Geplante Supabase-Tabellenstruktur (Vorschlag)
-
-```sql
--- Haupt-Sphären
-CREATE TABLE spheres (
-  id        TEXT PRIMARY KEY,   -- 'kitchen-dining'
-  number    TEXT,               -- '04'
-  title     TEXT,
-  description TEXT,
-  hero_image TEXT,
-  sort_order INT
-);
-
--- Sub-Sphären
-CREATE TABLE sub_spheres (
-  id          TEXT PRIMARY KEY,  -- 'kitchen-dining-coffee'
-  sphere_id   TEXT REFERENCES spheres(id),
-  sub_number  TEXT,              -- '04f'
-  title       TEXT,              -- 'Kaffeemaschinen'
-  description TEXT,
-  sort_order  INT
-);
-
--- Produkte
-CREATE TABLE products (
-  id              TEXT PRIMARY KEY,
-  sub_sphere_id   TEXT REFERENCES sub_spheres(id),
-  sphere_id       TEXT REFERENCES spheres(id),
-  title           TEXT,
-  image_url       TEXT,
-  price_indication TEXT,
-  affiliate_link  TEXT,
-  affiliate_network TEXT,  -- 'amazon' | 'awin'
-  brand           TEXT,
-  is_active       BOOLEAN DEFAULT true,
-  sort_order      INT
-);
-```
-
-### Integration-Plan: Supabase → HTML
-Statt statischer `spheresData[]` im JS:
-1. Beim Seitenaufruf: Fetch von Supabase REST API
-2. `spheresData` dynamisch aus DB befüllen
-3. Sub-Sphären: eigene Navigationsebene im Detail-Panel
-4. Produkte: aus `products`-Tabelle per `sphere_id` / `sub_sphere_id`
-
-**API-Endpunkt-Schema:**
-```javascript
-const SUPABASE_URL = 'https://[project].supabase.co';
-const SUPABASE_ANON_KEY = '[anon-key]';
-
-// Sphären laden
-fetch(`${SUPABASE_URL}/rest/v1/spheres?order=sort_order`, {
-  headers: { 'apikey': SUPABASE_ANON_KEY }
-})
-
-// Produkte einer Sphäre laden
-fetch(`${SUPABASE_URL}/rest/v1/products?sphere_id=eq.kitchen-dining&is_active=eq.true`, {
-  headers: { 'apikey': SUPABASE_ANON_KEY }
-})
+Frontend:    V5 HTML (pxCode — HEILIGER GRAL, nie anfassen)
+             + spheres-logic-v6.js (inline im HTML)
+Datenbank:   Supabase PostgreSQL (3 Tabellen)
+Deploy:      Netlify Auto-Deploy via GitHub push
+Affiliate:   Amazon Associates (treasurewor00-21)
+             Awin Publisher (2909169 / nexus_publishing)
 ```
 
 ---
 
-## 🔧 TECH STACK
+## 📁 SUPABASE TABELLEN
 
-```
-Frontend:     Statisches HTML + Vanilla JS (pxCode Design)
-Datenbank:    Supabase (PostgreSQL)
-Deployment:   Netlify (GitHub Auto-Deploy)
-Affiliate:    Amazon Associates + Awin
-Figma Source: oYnm2miE4JTKjRMQV6mFFU (Node 1:4642)
-```
+### `spheres` — 9 Hauptsphären
+| Spalte | Typ | Inhalt |
+|--------|-----|--------|
+| id | TEXT PK | 'kitchen-dining' etc. |
+| number | TEXT | '04' |
+| title | TEXT | 'Kitchen & Dining' |
+| description | TEXT | Sphären-Beschreibung |
+| hero_image | TEXT | Unsplash URL |
+| sort_order | INT | 1-9 |
+| is_active | BOOL | true |
+
+### `sub_spheres` — Unterkategorien
+| Spalte | Typ | Inhalt |
+|--------|-----|--------|
+| id | TEXT PK | 'kd-coffee' etc. |
+| sphere_id | TEXT FK | → spheres.id |
+| sub_number | TEXT | '04f' |
+| title | TEXT | 'Kaffeemaschinen' |
+| description | TEXT | Brand-Hinweise |
+| sort_order | INT | Reihenfolge |
+
+**Aktuelle Sub-Sphären:**
+- Kitchen: 04a Küchenmöbel, 04b Töpfe, 04c Messer, 04d Geschirr, 04e Küchenmaschinen, 04f Kaffeemaschinen
+- Watches: 01a Herren, 01b Damen, 01c Sport
+- Fragrances: 03a Signature·Herren, 03b Signature·Damen, 03c Signature·Unisex, 03d Private Vault·Herren, 03e Private Vault·Damen, 03f Private Vault·Unisex
+- Audio: 06a Lautsprecher, 06b Kopfhörer, 06c Smart Home
+
+### `Products` (Großes P!) — Affiliate-Produkte
+| Spalte | Typ | Inhalt |
+|--------|-----|--------|
+| id | UUID PK | auto |
+| sphere_id | TEXT FK | → spheres.id |
+| sub_sphere_id | TEXT FK | → sub_spheres.id |
+| brand | TEXT | 'Jura' |
+| title | TEXT | Produktname |
+| price | NUMERIC | Preis €  |
+| price_indication | TEXT | 'Premium Selection' |
+| image_url | TEXT | Produktbild URL |
+| affiliate_link | TEXT | Amazon/Awin Link |
+| affiliate_network | TEXT | 'amazon' / 'awin' |
+| description | TEXT | Emotionaler Text |
+| tagline | TEXT | Kurz-Catcher kursiv |
+| is_active | BOOL | false = unsichtbar |
+| sort_order | INT | Karussell-Reihenfolge |
+
+**RLS:** GRANT SELECT TO anon auf allen 3 Tabellen ✅
 
 ---
 
-## 📋 NÄCHSTE SCHRITTE (Priorität)
+## 📦 AKTUELLE PRODUKTE (26 aktiv / 7 deaktiviert)
 
-### Sofort
-- [ ] Supabase Tabellen anlegen (spheres / sub_spheres / products)
-- [ ] Sub-Sphären für Kitchen definieren (04a–04f)
-- [ ] Erste echte Produkte + Affiliate-Links in DB eintragen
+### Aktiv (Amazon-Links mit Kategorie-Filter):
+- Kitchen: Jura E8, De'Longhi Magnifica, Le Creuset, Staub, Demeyere, Zwilling, Wüsthof, Global, KitchenAid, Kenwood
+- Audio: Bang & Olufsen Beosound A9, Bowers & Wilkins 606 S3, Sennheiser HD 800 S, Sony WH-1000XM5
+- Fragrances: Creed Aventus, Tom Ford Oud Wood, Chanel N°5, Diptyque Philosykos
+- Watches: Omega Seamaster, TAG Heuer Carrera, Cartier Tank Must
+- Leather: Pandora Armband
+- Living: Vitra Eames Lounge Chair, Menu Plinth
+- Art: Meissen Vase, Villeroy & Boch MetroChic
 
-### Kurzfristig
-- [ ] HTML: statisches `spheresData[]` durch Supabase-Fetch ersetzen
-- [ ] Sub-Sphären-Navigation im Detail-Panel einbauen
-- [ ] Supabase Anon Key + URL in HTML integrieren
+### Deaktiviert (kein Affiliate-Link):
+Hermès, Bottega Veneta, Loro Piana, Brunello Cucinelli, Tiffany, Thermomix, Miele
+→ Aktivieren sobald Awin-Links vorhanden
 
-### Mittelfristig
-- [ ] Alle 9 Sphären mit Sub-Sphären strukturieren
-- [ ] Pinterest Deep-Link auch auf Sub-Sphären ausweiten (`?sphere=kitchen-dining&sub=04f`)
-- [ ] Echte Hero-Bilder pro Sphäre (Cloudinary oder Supabase Storage)
+### Amazon-Link Format (WICHTIG):
+```
+https://www.amazon.de/s?k=[SUCHBEGRIFF]&rh=n%3A[KATEGORIE-ID]&tag=treasurewor00-21
+```
+Kategorie-IDs:
+- Uhren: 368208031
+- Parfüm: 64257031
+- Küche: 3167641
+- HiFi: 3171261
+- Kopfhörer: 3171271
+- Schmuck: 194979031
 
 ---
 
-## 🗝️ WORKFLOW FÜR NEUE SESSIONS
+## 🎨 DESIGN & BRANDING
 
-```
-1. curl -s https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CLAUDE.md
-2. Kontext aus CLAUDE.md lesen
-3. Supabase MCP verfügbar → direkt Tabellen abfragen
-4. HTML-Datei: spheres_elegance_merged.html (lokal bei Hagen)
-5. Änderungen → Hagen pusht via GitHub Token
-```
+**Palette:** Forest Green #0B2B1B | Cashmere #C5A880 | Alabaster #F9F6F0 | Stone #8B9E8E  
+**Fonts:** Playfair Display (Headlines) | Inter (Body)  
+**Logo:** Wassermann mit Gefäß — Cashmere Gold auf Forest Green  
+         (ChatGPT/DALL-E generiert, 08.06.2026)  
+**Tagline:** "Discover your Sphere."  
+**Kurator:** H.M. Renyé  
+
+### Sphären-Catcher (in spheres.tagline Spalte eintragen):
+- 01 Watches: *"Die Zeit ist das Einzige, was man nicht kaufen kann. Aber wie man sie misst — das ist eine Entscheidung für Generationen."*
+- 05 Living: *"Ein Raum erzählt, wer du bist — bevor du ein Wort gesagt hast."*
+- 06 Audio: *"Stille ist selten. Guter Klang ist seltener. Beides zusammen — unbezahlbar."*
+- 07 Fashion: *"Mode vergeht. Stil bleibt. Der Unterschied liegt nicht im Preis — sondern in der Entscheidung."*
+- 08 Leather: *"Echtes Leder wird mit den Jahren besser. Wie alles was Substanz hat."*
+- **02, 03, 04, 09:** Hagen überdenkt noch — nicht eintragen bis er sie schickt
 
 ---
 
-## ⚙️ BUILD & DEPLOY
+## 💡 BRAND-PHILOSOPHIE
+
+**Ferrari vs. Lamborghini:**
+- Ferrari-Kunde: aspirational, will ankommen, kauft das Symbol → braucht Erklärung
+- Lamborghini-Kunde: ist angekommen, kauft Substanz → braucht Bestätigung
+
+**Der USP:** "Wir verkaufen Entscheidungen die Generationen überdauern."  
+Hagen bürgt mit 40 Jahren Erfahrung persönlich für jedes Produkt.  
+Kein Amazon-Shop — ein Kurator mit Haltung.
+
+**Produkttext-Prinzip:** Keine Specs, keine Features — Lebensphilosophie.  
+Beispiel Wüsthof: *"Dein Sohn wird damit kochen. Dein Enkel wird fragen, woher es kommt."*
+
+---
+
+## 🔗 AWIN INTEGRATION (TODO)
+
+**Publisher-ID:** 2909169 (nexus_publishing)  
+**Status:** 0 zugelassene Advertiser — Bewerbungen ausstehend
+
+**Empfohlene Programme (Awin):**
+| Programm | Brands | Awin-ID |
+|----------|--------|---------|
+| Pleasance & Harper | Omega, TAG Heuer, Longines | 19109 |
+| The Luxury Closet | Hermès, Cartier, Rolex, Chanel | 38182 |
+| Jura Watches | TAG Heuer, Breitling, Longines | 7153 |
+| YSL Beauty | Düfte | suchen |
+| Dior Beauty | Sauvage, J'adore | suchen |
+
+**Awin-Link Format:**
+```
+https://www.awin1.com/cread.php?awinmid=[ADVERTISER-ID]&awinaffid=2909169&clickref=[PRODUKT-ID]&p=[ENCODED-URL]
+```
+
+**Workflow wenn Awin-Programm genehmigt:**
+1. Hagen schickt Advertiser-ID
+2. Claude baut Link + trägt in Supabase ein
+3. `is_active = true` setzen
+4. Sofort live
+
+---
+
+## 🚀 JS-ARCHITEKTUR (spheres-logic.js)
+
+**Kernfunktionen:**
+- `init()` — Karten-Events + Deep-Link beim Laden
+- `openSphere(sphereId, subId)` — Detail-Panel öffnen
+- `switchSub(subId)` — Sub-Sphäre wechseln
+- `renderDetail()` — HTML für Detail-Panel
+- `loadProducts(sphereId, subId)` — Supabase-Fetch, ersetzt Platzhalter
+- `openProduct(p)` — Produkt-Overlay (Emotion + CTA)
+- `closeProduct()` — Overlay schließen
+- `closeSphere()` — zurück zum Grid
+
+**State:** `activeSphereId`, `activeSubId` (global)  
+**Platzhalter:** 4 Picsum-Karten solange keine DB-Produkte  
+**Supabase:** Fetch mit anon key, silent fail bei Netzwerkfehler  
+
+---
+
+## 📋 NÄCHSTE SCHRITTE
+
+### Sofort (ohne Bildschirm):
+- [ ] Awin-Programme beantragen: Pleasance & Harper (19109), The Luxury Closet (38182)
+- [ ] Sphären-Catcher für 02, 03, 04, 09 formulieren
+- [ ] Supabase: `tagline` Spalte in `spheres` Tabelle für Catcher
+
+### Mit Bildschirm (Montag+):
+- [ ] Alle Produktbilder durch echte Produktfotos ersetzen
+- [ ] Direkte Amazon-ASINs recherchieren (statt Suche)
+- [ ] Sub-Sphären für Fashion, Living, Leather, Art, Jewelry anlegen
+- [ ] Pinterest-Strategie + Make.com Automation
+- [ ] JSON-LD Schema für KI-Sichtbarkeit
+- [ ] Wassermann-Logo als SVG in pxCode integrieren
+
+### Langfristig:
+- [ ] 1.000 Produkte × 10€ Provision = 10.000€/Tag
+- [ ] Make.com: Supabase → Pinterest/Instagram/TikTok Automation
+- [ ] Eigene API / openapi.yaml für KI-Agenten-Abfragen
+
+---
+
+## ⚠️ WICHTIGE REGELN
+
+1. **HTML-Design NIEMALS anfassen** — nur JS-Block ersetzen
+2. **Produktbild muss zum Link passen** — kein Mismatch
+3. **Kein Produkt ohne Affiliate-Link** — deaktivieren statt löschen
+4. **Amazon-Links immer mit Kategorie-Filter** (`rh=n%3A...`)
+5. **Supabase-Tabelle heißt `"Products"`** (Großes P, in Anführungszeichen)
+6. **Deploy:** index.html + netlify.toml pushen → Netlify auto-deployed
+
+---
+
+## 🔧 SESSION-INIT FÜR NEUE CHATS
 
 ```bash
-# Netlify Deploy (React-Build, noch aktiv)
-git push origin main   # Auto-triggers Netlify build
+# 1. Diese Datei lesen
+curl -s https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CLAUDE.md
 
-# HTML-Version: Datei direkt im Browser öffnen (file://)
-# Später: Netlify als Static Site (HTML direkt deployen)
+# 2. Supabase via MCP verfügbar
+# Projekt: gmibyowinqjfysgarhea
+
+# 3. GitHub Token bei Hagen erfragen wenn nötig
+# (Token läuft ab — immer neu generieren)
+
+# 4. V5 HTML ist Basis — spheres_elegance_merged_5.html
+# JS-Block (Zeile ~829 bis ~1125) ersetzen mit spheres-logic-v6.js
 ```
-
----
-
-**Figma:** https://www.figma.com/design/oYnm2miE4JTKjRMQV6mFFU/world-of-treasure  
-**Supabase MCP:** verbunden via Claude.ai  
-**Amazon Tag:** `treasurewor0f-20`  
-
-*Zuletzt aktualisiert: 06.06.2026 — Claude Session*

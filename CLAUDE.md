@@ -277,3 +277,41 @@ Herren: Omega Seamaster (2x), Breitling Navitimer, IWC Portugieser, Zenith El Pr
 Damen: Cartier Tank Must, Cartier Ballon Bleu, Omega Constellation
 Sport: TAG Heuer (2x), Breitling Superocean
 Alle bis max. $6.900 — bewusste Entscheidung (Lamborghini-Kunden Einstiegsbereich)
+
+---
+
+## ⚡ KRITISCHE REGEL: 110V vs. 220V
+
+**US-Shops (z.B. Watches of USA) NUR für:**
+- Uhren ✅
+- Schmuck ✅
+- Leder/Bags ✅
+- Parfüm ✅
+- Kleidung ✅
+- Alles ohne Stromversorgung ✅
+
+**NIEMALS US-Shops für Elektrogeräte:**
+- Kaffeemaschinen ❌ (110V funktioniert nicht in EU)
+- Küchenmaschinen ❌ (KitchenAid 110V = kaputt in Europa)
+- Audio/HiFi ❌
+- Haushaltsgeräte ❌
+
+**Elektrogeräte immer über:**
+- Amazon.de (220V garantiert) ✅
+- EU-Awin-Programme ✅
+
+---
+
+## 📅 MEILENSTEINE
+
+| Datum | Meilenstein |
+|-------|-------------|
+| 07.06.2026 | Plattform live, 9 Sphären, 33 Produkte, Wassermann-Logo |
+| 08.06.2026 | Awin Publisher aktiv, 12 Programme beworben |
+| 08.06.2026 | Watches of USA + Watch Home genehmigt (100% Bestätigungsrate) |
+| 08.06.2026 | 13 Uhren mit Awin-Links bis $6.900 |
+| 08.06.2026 | Amazon Kategorie-Filter auf allen Links |
+| 08.06.2026 | Sprachmodul EN/IT/FR/ES geplant |
+| Pending | Chronext DE/AT/CH/FR → Rolex, Patek, AP |
+| Pending | Douglas EE → Düfte komplett |
+| Pending | Niche Jewellery → Fine Jewelry Sphäre |

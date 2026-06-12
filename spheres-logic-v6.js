@@ -1,6 +1,6 @@
 // ==============================================================
-// SPHERES OF ELEGANCE — LOGIK V8
-// Fix: switchSub kein DOM-Rebuild, Carousel Prev/Next, crossSell-Bug
+// SPHERES OF ELEGANCE — LOGIK V9
+// Fix: switchSub scrollt ins Carousel, Sub-IDs Supabase-konform
 // ==============================================================
 
 const SB_URL = 'https://gmibyowinqjfysgarhea.supabase.co';
@@ -18,29 +18,29 @@ const spheresData = [
   { id:'art-objects',      title:'Art & Objects',     description:'Curated Expressions. Collectible art, sculptural objects and rare editions for interiors that tell a story.',                                           crossSellingSpheres:['living-styles','kitchen-dining'], heroImage:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80' }
 ];
 
+// IDs MÜSSEN exakt mit Supabase sub_sphere_id übereinstimmen!
 const subSpheresMap = {
   'luxury-watches': [
-    { id:'lw-mens',   num:'01a', title:'Herrenuhren',    desc:'Rolex, Patek Philippe, A. Lange & Söhne' },
-    { id:'lw-womens', num:'01b', title:'Damenuhren',     desc:'Cartier, Chopard, Bulgari' },
-    { id:'lw-sport',  num:'01c', title:'Sportuhren',     desc:'IWC, TAG Heuer, Breitling' }
+    { id:'lw-mens',        num:'01a', title:'Herrenuhren',     desc:'Rolex, Patek Philippe, A. Lange & Söhne' },
+    { id:'lw-womens',      num:'01b', title:'Damenuhren',      desc:'Cartier, Chopard, Bulgari' },
+    { id:'lw-sport',       num:'01c', title:'Sportuhren',      desc:'IWC, TAG Heuer, Breitling' }
   ],
+  // Fragrances: IDs aus Supabase → fr-sig-men, fr-sig-women, fr-vault-men
   'fragrances': [
-    { id:'fr-men',    num:'03a', title:'Herrendüfte',    desc:'Tom Ford, Creed, Xerjoff' },
-    { id:'fr-women',  num:'03b', title:'Damendüfte',     desc:'Amouage, Chanel, Diptyque' },
-    { id:'fr-unisex', num:'03c', title:'Unisex & Nische',desc:'Maison Margiela, Byredo' }
+    { id:'fr-sig-men',     num:'03a', title:'Signature Men',   desc:'Tom Ford, Creed, Xerjoff' },
+    { id:'fr-sig-women',   num:'03b', title:'Signature Women', desc:'Amouage, Chanel, Diptyque' },
+    { id:'fr-vault-men',   num:'03c', title:'Private Vault',   desc:'Maison Margiela, Byredo, Niche' }
   ],
+  // Kitchen: kd-cookware, kd-knives aktiv; kd-coffee = 04f in Supabase → ID angepasst
   'kitchen-dining': [
-    { id:'kd-furniture',  num:'04a', title:'Küchenmöbel',    desc:'Bulthaup, SieMatic, Poggenpohl' },
-    { id:'kd-cookware',   num:'04b', title:'Töpfe & Pfannen',desc:'Le Creuset, Staub, Demeyere' },
-    { id:'kd-knives',     num:'04c', title:'Messer',         desc:'Zwilling, Wüsthof, Global' },
-    { id:'kd-tableware',  num:'04d', title:'Geschirr',       desc:'Villeroy & Boch, Rosenthal, Meissen' },
-    { id:'kd-appliances', num:'04e', title:'Küchenmaschinen',desc:'KitchenAid, Kenwood, Thermomix' },
-    { id:'kd-coffee',     num:'04f', title:'Kaffeemaschinen',desc:"Jura, De'Longhi, Miele" }
+    { id:'kd-cookware',    num:'04b', title:'Töpfe & Pfannen', desc:'Le Creuset, Staub, Demeyere' },
+    { id:'kd-knives',      num:'04c', title:'Messer',          desc:'Zwilling, Wüsthof, Global' },
+    { id:'04f',            num:'04f', title:'Kaffeemaschinen', desc:"Jura, De'Longhi, Miele" }
   ],
   'audio-technology': [
-    { id:'au-speakers',   num:'06a', title:'Lautsprecher',    desc:'Bang & Olufsen, Bowers & Wilkins' },
-    { id:'au-headphones', num:'06b', title:'Kopfhörer',       desc:'Focal, Sennheiser, Sony' },
-    { id:'au-smarthome',  num:'06c', title:'Smart Home Audio',desc:'Sonos, Denon, Yamaha' }
+    { id:'au-speakers',    num:'06a', title:'Lautsprecher',    desc:'Bang & Olufsen, Bowers & Wilkins' },
+    { id:'au-headphones',  num:'06b', title:'Kopfhörer',       desc:'Focal, Sennheiser, Sony' },
+    { id:'au-smarthome',   num:'06c', title:'Smart Home Audio',desc:'Sonos, Denon, Yamaha' }
   ]
 };
 
@@ -58,7 +58,6 @@ function loadProducts(sphereId, subId) {
   const c = document.getElementById('soe-carousel');
   if (!c) return;
 
-  // Ladeindikator — kein Picsum
   c.innerHTML = `<div style="flex:0 0 100%;display:flex;align-items:center;justify-content:center;height:280px;color:rgba(249,246,240,0.3);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">Loading …</div>`;
 
   let params = `sphere_id=eq.${sphereId}&is_active=eq.true&order=sort_order`;
@@ -73,9 +72,7 @@ function loadProducts(sphereId, subId) {
       c.innerHTML = `<div style="flex:0 0 100%;display:flex;align-items:center;justify-content:center;height:280px;color:rgba(249,246,240,0.25);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">No products yet</div>`;
       return;
     }
-    c.innerHTML = products.map(p => {
-      const safeP = JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      return `
+    c.innerHTML = products.map(p => `
       <div onclick="openProduct(JSON.parse(decodeURIComponent('${encodeURIComponent(JSON.stringify(p))}')))"
         style="flex:0 0 260px;cursor:pointer;color:#f9f6f0;-webkit-tap-highlight-color:transparent;">
         <div style="width:260px;height:280px;overflow:hidden;background:rgba(255,255,255,0.05);margin-bottom:14px;position:relative;">
@@ -92,8 +89,7 @@ function loadProducts(sphereId, subId) {
         <p style="font-size:0.78rem;font-family:'Playfair Display',serif;color:rgba(249,246,240,0.7);margin:0;">
           ${p.price ? '€\u202f'+parseFloat(p.price).toLocaleString('de-DE',{minimumFractionDigits:0}) : (p.price_indication||'Premium Selection')}
         </p>
-      </div>`;
-    }).join('');
+      </div>`).join('');
   })
   .catch(()=>{
     const c2 = document.getElementById('soe-carousel');
@@ -101,20 +97,20 @@ function loadProducts(sphereId, subId) {
   });
 }
 
-// ── SUB-SWITCH (kein DOM-Rebuild, kein Scroll-Sprung) ─────────
+// ── SUB-SWITCH ────────────────────────────────────────────────
 function switchSub(subId) {
   activeSubId = subId;
   history.replaceState({ sphere: activeSphereId, sub: subId }, '', '?sphere=' + activeSphereId + '&sub=' + subId);
 
-  // Nur Buttons neu färben
+  // Buttons umfärben
   const subs = subSpheresMap[activeSphereId] || [];
   subs.forEach(sub => {
     const btn = document.getElementById('subsphere-btn-' + sub.id);
     if (!btn) return;
     const active = sub.id === subId;
     btn.style.background = active ? 'rgba(249,246,240,0.1)' : 'transparent';
-    btn.style.border      = '1px solid ' + (active ? 'rgba(249,246,240,0.55)' : 'rgba(249,246,240,0.18)');
-    btn.style.color       = active ? '#f9f6f0' : 'rgba(249,246,240,0.48)';
+    btn.style.border     = '1px solid ' + (active ? 'rgba(249,246,240,0.55)' : 'rgba(249,246,240,0.18)');
+    btn.style.color      = active ? '#f9f6f0' : 'rgba(249,246,240,0.48)';
   });
 
   // Sub-Desc aktualisieren
@@ -122,8 +118,14 @@ function switchSub(subId) {
   const descEl = document.getElementById('soe-sub-desc');
   if (descEl) descEl.textContent = activeSub ? activeSub.desc : '';
 
-  // Produkte laden — kein Scroll
+  // Produkte laden
   loadProducts(activeSphereId, subId);
+
+  // ── Scroll ins Carousel (nach kurzem Delay, damit DOM settled) ──
+  setTimeout(() => {
+    const carousel = document.getElementById('soe-carousel');
+    if (carousel) carousel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 100);
 }
 
 // ── KARTEN ────────────────────────────────────────────────────
@@ -157,7 +159,7 @@ function closeSphere() {
   gridContainer.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── CAROUSEL SCROLL ───────────────────────────────────────────
+// ── CAROUSEL SCROLL (Prev/Next Buttons) ──────────────────────
 function carouselScroll(dir) {
   const c = document.getElementById('soe-carousel');
   if (!c) return;
@@ -280,7 +282,6 @@ function openProduct(p) {
     document.body.appendChild(overlay);
   }
 
-  // Cross-Sell sicher berechnen (kein Template-String-Bug)
   const crossSell = (function() {
     const s = getSphereById(activeSphereId);
     if (!s || !s.crossSellingSpheres) return [];

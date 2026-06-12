@@ -1,6 +1,6 @@
 // ==============================================================
-// SPHERES OF ELEGANCE — LOGIK V7
-// Fix: Navigation/Back, Mobile, Supabase Live
+// SPHERES OF ELEGANCE — LOGIK V8
+// Fix: switchSub kein DOM-Rebuild, Carousel Prev/Next, crossSell-Bug
 // ==============================================================
 
 const SB_URL = 'https://gmibyowinqjfysgarhea.supabase.co';
@@ -55,19 +55,29 @@ function getSphereById(id) { return spheresData.find(s => s.id === id); }
 
 // ── SUPABASE ──────────────────────────────────────────────────
 function loadProducts(sphereId, subId) {
+  const c = document.getElementById('soe-carousel');
+  if (!c) return;
+
+  // Ladeindikator — kein Picsum
+  c.innerHTML = `<div style="flex:0 0 100%;display:flex;align-items:center;justify-content:center;height:280px;color:rgba(249,246,240,0.3);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">Loading …</div>`;
+
   let params = `sphere_id=eq.${sphereId}&is_active=eq.true&order=sort_order`;
   if (subId) params += `&sub_sphere_id=eq.${subId}`;
+
   fetch(`${SB_URL}/rest/v1/Products?${params}`, {
     headers:{ 'apikey':SB_KEY, 'Authorization':`Bearer ${SB_KEY}` }
   })
   .then(r => r.ok ? r.json() : [])
   .then(products => {
-    if (!products || !products.length) return;
-    const c = document.getElementById('soe-carousel');
-    if (!c) return;
-    c.innerHTML = products.map(p => `
-      <div onclick='openProduct(${JSON.stringify(p).replace(/'/g,"\'")})'
-        style="flex:0 0 260px;cursor:pointer;color:#f9f6f0;display:block;-webkit-tap-highlight-color:transparent;">
+    if (!products || !products.length) {
+      c.innerHTML = `<div style="flex:0 0 100%;display:flex;align-items:center;justify-content:center;height:280px;color:rgba(249,246,240,0.25);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">No products yet</div>`;
+      return;
+    }
+    c.innerHTML = products.map(p => {
+      const safeP = JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      return `
+      <div onclick="openProduct(JSON.parse(decodeURIComponent('${encodeURIComponent(JSON.stringify(p))}')))"
+        style="flex:0 0 260px;cursor:pointer;color:#f9f6f0;-webkit-tap-highlight-color:transparent;">
         <div style="width:260px;height:280px;overflow:hidden;background:rgba(255,255,255,0.05);margin-bottom:14px;position:relative;">
           <img src="${p.image_url||''}" alt="${p.title}"
             style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
@@ -82,9 +92,38 @@ function loadProducts(sphereId, subId) {
         <p style="font-size:0.78rem;font-family:'Playfair Display',serif;color:rgba(249,246,240,0.7);margin:0;">
           ${p.price ? '€\u202f'+parseFloat(p.price).toLocaleString('de-DE',{minimumFractionDigits:0}) : (p.price_indication||'Premium Selection')}
         </p>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   })
-  .catch(()=>{});
+  .catch(()=>{
+    const c2 = document.getElementById('soe-carousel');
+    if (c2) c2.innerHTML = `<div style="flex:0 0 100%;color:rgba(249,246,240,0.2);font-size:0.75rem;letter-spacing:2px;padding:40px;">Connection error</div>`;
+  });
+}
+
+// ── SUB-SWITCH (kein DOM-Rebuild, kein Scroll-Sprung) ─────────
+function switchSub(subId) {
+  activeSubId = subId;
+  history.replaceState({ sphere: activeSphereId, sub: subId }, '', '?sphere=' + activeSphereId + '&sub=' + subId);
+
+  // Nur Buttons neu färben
+  const subs = subSpheresMap[activeSphereId] || [];
+  subs.forEach(sub => {
+    const btn = document.getElementById('subsphere-btn-' + sub.id);
+    if (!btn) return;
+    const active = sub.id === subId;
+    btn.style.background = active ? 'rgba(249,246,240,0.1)' : 'transparent';
+    btn.style.border      = '1px solid ' + (active ? 'rgba(249,246,240,0.55)' : 'rgba(249,246,240,0.18)');
+    btn.style.color       = active ? '#f9f6f0' : 'rgba(249,246,240,0.48)';
+  });
+
+  // Sub-Desc aktualisieren
+  const activeSub = subs.find(s => s.id === subId);
+  const descEl = document.getElementById('soe-sub-desc');
+  if (descEl) descEl.textContent = activeSub ? activeSub.desc : '';
+
+  // Produkte laden — kein Scroll
+  loadProducts(activeSphereId, subId);
 }
 
 // ── KARTEN ────────────────────────────────────────────────────
@@ -110,14 +149,6 @@ function openSphere(sphereId, subId) {
   loadProducts(sphereId, activeSubId);
 }
 
-function switchSub(subId) {
-  activeSubId = subId;
-  renderDetail();
-  history.replaceState({ sphere: activeSphereId, sub: subId }, '', '?sphere=' + activeSphereId + '&sub=' + subId);
-  detailContainer.scrollIntoView({ behavior:'smooth', block:'start' });
-  loadProducts(activeSphereId, subId);
-}
-
 function closeSphere() {
   activeSphereId = null;
   activeSubId    = null;
@@ -126,17 +157,19 @@ function closeSphere() {
   gridContainer.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
+// ── CAROUSEL SCROLL ───────────────────────────────────────────
+function carouselScroll(dir) {
+  const c = document.getElementById('soe-carousel');
+  if (!c) return;
+  c.scrollBy({ left: dir * 300, behavior: 'smooth' });
+}
+
 // ── RENDER ────────────────────────────────────────────────────
 function renderDetail() {
   const sphere = getSphereById(activeSphereId);
   if (!sphere) return;
   const subs      = subSpheresMap[activeSphereId] || [];
   const activeSub = subs.find(s => s.id === activeSubId) || null;
-
-  const placeholders = Array.from({length:4}, (_,i) => ({
-    title: ['Premium Selection','Exclusive Edition','Iconic Piece','Signature Series'][i],
-    img:   `https://picsum.photos/seed/${activeSphereId}${i}/300/300`
-  }));
 
   detailContainer.innerHTML = `
 <div style="max-width:1200px;margin:0 auto;padding:48px 24px 64px;font-family:'Inter',sans-serif;color:#f9f6f0;box-sizing:border-box;">
@@ -173,7 +206,7 @@ function renderDetail() {
     <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 12px;">Category</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       ${subs.map(sub => `
-        <button onclick="switchSub('${sub.id}')" style="
+        <button id="subsphere-btn-${sub.id}" onclick="switchSub('${sub.id}')" style="
           background:${sub.id===activeSubId?'rgba(249,246,240,0.1)':'transparent'};
           border:1px solid ${sub.id===activeSubId?'rgba(249,246,240,0.55)':'rgba(249,246,240,0.18)'};
           color:${sub.id===activeSubId?'#f9f6f0':'rgba(249,246,240,0.48)'};
@@ -183,34 +216,36 @@ function renderDetail() {
           ${sub.num}&thinsp;${sub.title}
         </button>`).join('')}
     </div>
-    ${activeSub ? `<p style="font-size:0.76rem;color:rgba(249,246,240,0.38);margin:10px 0 0;">${activeSub.desc}</p>` : ''}
+    <p id="soe-sub-desc" style="font-size:0.76rem;color:rgba(249,246,240,0.38);margin:10px 0 0;">${activeSub ? activeSub.desc : ''}</p>
   </div>` : ''}
 
   <div style="width:48px;height:1px;background:rgba(249,246,240,0.15);margin-bottom:28px;"></div>
 
-  <p style="font-size:0.64rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 18px;">Curated Selection</p>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+    <p style="font-size:0.64rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0;">Curated Selection</p>
+    <div style="display:flex;gap:8px;">
+      <button onclick="carouselScroll(-1)" aria-label="Previous"
+        style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);width:36px;height:36px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;">‹</button>
+      <button onclick="carouselScroll(1)" aria-label="Next"
+        style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);width:36px;height:36px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;">›</button>
+    </div>
+  </div>
 
   <div id="soe-carousel" style="display:flex;gap:20px;overflow-x:auto;padding-bottom:16px;scrollbar-width:none;-ms-overflow-style:none;">
-    ${placeholders.map(p => `
-      <div style="flex:0 0 260px;">
-        <div style="width:260px;height:280px;background:rgba(255,255,255,0.05);margin-bottom:14px;display:flex;align-items:center;justify-content:center;">
-          <img src="${p.img}" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.3;">
-        </div>
-        <p style="font-size:0.72rem;color:rgba(249,246,240,0.3);margin:0;letter-spacing:2px;text-transform:uppercase;">Loading…</p>
-      </div>`).join('')}
+    <div style="flex:0 0 100%;display:flex;align-items:center;justify-content:center;height:280px;color:rgba(249,246,240,0.3);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">Loading …</div>
   </div>
 
 </div>
 <style>
   #soe-carousel::-webkit-scrollbar{display:none;}
   @media(max-width:600px){
-    #soe-carousel > a, #soe-carousel > div { flex:0 0 150px !important; }
-    #soe-carousel > a > div, #soe-carousel > div > div { width:150px !important; height:150px !important; }
+    #soe-carousel > div[style*="flex:0 0 260px"] { flex:0 0 180px !important; }
+    #soe-carousel > div[style*="flex:0 0 260px"] > div { width:180px !important; height:200px !important; }
   }
 </style>`;
 }
 
-// ── NAVIGATION (Back-Button Handy-Fix) ───────────────────────
+// ── NAVIGATION (Back-Button) ──────────────────────────────────
 window.addEventListener('popstate', (e) => {
   if (e.state && e.state.sphere) {
     const sphere = getSphereById(e.state.sphere);
@@ -238,13 +273,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // ── PRODUKT-DETAIL OVERLAY ────────────────────────────────────
 function openProduct(p) {
-  // Overlay erstellen
   let overlay = document.getElementById('soe-product-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
     overlay.id = 'soe-product-overlay';
     document.body.appendChild(overlay);
   }
+
+  // Cross-Sell sicher berechnen (kein Template-String-Bug)
+  const crossSell = (function() {
+    const s = getSphereById(activeSphereId);
+    if (!s || !s.crossSellingSpheres) return [];
+    return s.crossSellingSpheres.map(id => getSphereById(id)).filter(Boolean).slice(0,2);
+  })();
+
+  const crossSellHTML = crossSell.map(s => `
+    <button onclick="closeProduct();openSphere('${s.id}')"
+      style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+      ${s.title}
+    </button>`).join('');
 
   overlay.style.cssText = `
     position:fixed;top:0;left:0;width:100%;height:100%;
@@ -262,7 +309,6 @@ function openProduct(p) {
     </style>
     <div style="max-width:900px;width:100%;padding:32px 24px 64px;box-sizing:border-box;font-family:'Inter',sans-serif;color:#f9f6f0;">
 
-      <!-- HEADER -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
         <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0;">
           H.M. Renyé &thinsp;·&thinsp; Curated Selection
@@ -272,7 +318,6 @@ function openProduct(p) {
         </button>
       </div>
 
-      <!-- PRODUKT LAYOUT -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:48px;">
         <div>
           <img src="${p.image_url||''}" alt="${p.title}"
@@ -293,7 +338,6 @@ function openProduct(p) {
             ${p.description}
           </p>` : ''}
 
-          <!-- CTA -->
           <a href="${p.affiliate_link||'#'}" target="_blank" rel="noopener sponsored"
             style="display:block;background:#f9f6f0;color:#0B2B1B;text-align:center;padding:16px 32px;font-family:'Inter',sans-serif;font-size:0.82rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;margin-bottom:12px;-webkit-tap-highlight-color:transparent;">
             Entdecken &amp; Kaufen →
@@ -302,38 +346,28 @@ function openProduct(p) {
             Weiterleitung zum verifizierten Händler · Affiliate-Link
           </p>
 
-          <!-- WEITER STÖBERN -->
           <div style="border-top:1px solid rgba(249,246,240,0.12);padding-top:24px;">
             <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 14px;">
               Weiter stöbern
             </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button onclick="closeProduct()" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+              <button onclick="closeProduct()"
+                style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
                 ← Zurück zur Sphäre
               </button>
-              ${activeSphereId && sphere_crossSell() ? sphere_crossSell().map(s=>`
-              <button onclick="closeProduct();openSphere('${s.id}')" style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
-                ${s.title}
-              </button>`).join('') : ''}
+              ${crossSellHTML}
             </div>
           </div>
         </div>
       </div>
     </div>`;
 
-  // Mobile: einspaltig
   const style = document.createElement('style');
   style.textContent = '@media(max-width:640px){#soe-product-overlay [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}}';
   overlay.appendChild(style);
 
   document.body.style.overflow = 'hidden';
-  history.pushState({ product: p.id, sphere: activeSphereId, sub: activeSubId }, '', '?sphere=' + activeSphereId + (activeSubId ? '&sub='+activeSubId : '') + '&product=' + p.id);
-}
-
-function sphere_crossSell() {
-  const s = getSphereById(activeSphereId);
-  if (!s || !s.crossSellingSpheres) return [];
-  return s.crossSellingSpheres.map(id => getSphereById(id)).filter(Boolean).slice(0,2);
+  history.pushState({ product: p.id, sphere: activeSphereId, sub: activeSubId }, '', '?sphere=' + activeSphereId + (activeSubId ? '&sub='+activeSubId : '') + '&product=' + (p.id||''));
 }
 
 function closeProduct() {

@@ -1,46 +1,45 @@
 // ==============================================================
-// SPHERES OF ELEGANCE — LOGIK V9
-// Fix: switchSub scrollt ins Carousel, Sub-IDs Supabase-konform
+// SPHERES OF ELEGANCE — LOGIK V10
+// EN: All sub-categories + UI text in English
+// Footer modals: Legal, Privacy, Contact
 // ==============================================================
 
 const SB_URL = 'https://gmibyowinqjfysgarhea.supabase.co';
 const SB_KEY = 'sb_publishable_DWGaYYEE_2xpLcMvgqs6kA_QA2TFHr9';
 
 const spheresData = [
-  { id:'luxury-watches',   title:'Luxury Watches',    description:'Time. Precision. Legacy. Where horological mastery meets sculptural beauty — each timepiece an heirloom engineered to outlast generations.',           crossSellingSpheres:['fine-jewelry','leather-goods'],   heroImage:'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80' },
-  { id:'fine-jewelry',     title:'Fine Jewelry',      description:'Crafted Brilliance. The quiet power of precious stones and noble metals — jewellery that speaks without words.',                                        crossSellingSpheres:['luxury-watches','fragrances'],    heroImage:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80' },
-  { id:'fragrances',       title:'Fragrances',        description:'Invisible Luxury. The most intimate luxury — a signature scent that lingers long after you have left the room.',                                        crossSellingSpheres:['fine-jewelry','fashion'],         heroImage:'https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80' },
-  { id:'kitchen-dining',   title:'Kitchen & Dining',  description:'The Art of Entertaining. Where culinary passion meets obsessive craftsmanship — tools and tableware for those who treat every meal as ceremony.',       crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80' },
-  { id:'living-styles',    title:'Living Styles',     description:'Spaces That Inspire. Sculptural furniture, luminous textiles, and objects that transform a house into a considered world.',                             crossSellingSpheres:['audio-technology','art-objects'], heroImage:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
-  { id:'audio-technology', title:'Audio & Technology',description:'Sound Beyond Expectations. The symphony of acoustic perfection and timeless industrial design — where engineering transcends utility and becomes art.',  crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&q=80' },
-  { id:'fashion',          title:'Fashion',           description:'Quiet Confidence. Curated fashion for those who understand that true style is never about noise — it is about presence.',                                crossSellingSpheres:['leather-goods','fragrances'],     heroImage:'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80' },
-  { id:'leather-goods',    title:'Leather Goods',     description:'Timeless Companions. Iconic bags, wallets and accessories crafted from the finest hides — objects that improve with every year of use.',                crossSellingSpheres:['fashion','luxury-watches'],       heroImage:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80' },
-  { id:'art-objects',      title:'Art & Objects',     description:'Curated Expressions. Collectible art, sculptural objects and rare editions for interiors that tell a story.',                                           crossSellingSpheres:['living-styles','kitchen-dining'], heroImage:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80' }
+  { id:'luxury-watches',   title:'Luxury Watches',     description:'Time. Precision. Legacy. Where horological mastery meets sculptural beauty — each timepiece an heirloom engineered to outlast generations.',          crossSellingSpheres:['fine-jewelry','leather-goods'],   heroImage:'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80' },
+  { id:'fine-jewelry',     title:'Fine Jewelry',        description:'Crafted Brilliance. The quiet power of precious stones and noble metals — jewellery that speaks without words.',                                       crossSellingSpheres:['luxury-watches','fragrances'],    heroImage:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80' },
+  { id:'fragrances',       title:'Fragrances',          description:'Invisible Luxury. The most intimate luxury — a signature scent that lingers long after you have left the room.',                                       crossSellingSpheres:['fine-jewelry','fashion'],         heroImage:'https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80' },
+  { id:'kitchen-dining',   title:'Kitchen & Dining',   description:'The Art of Entertaining. Where culinary passion meets obsessive craftsmanship — tools and tableware for those who treat every meal as ceremony.',      crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80' },
+  { id:'living-styles',    title:'Living Styles',       description:'Spaces That Inspire. Sculptural furniture, luminous textiles, and objects that transform a house into a considered world.',                            crossSellingSpheres:['audio-technology','art-objects'], heroImage:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+  { id:'audio-technology', title:'Audio & Technology', description:'Sound Beyond Expectations. The symphony of acoustic perfection and timeless industrial design — where engineering transcends utility and becomes art.', crossSellingSpheres:['living-styles','art-objects'],    heroImage:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&q=80' },
+  { id:'fashion',          title:'Fashion',             description:'Quiet Confidence. Curated fashion for those who understand that true style is never about noise — it is about presence.',                               crossSellingSpheres:['leather-goods','fragrances'],     heroImage:'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80' },
+  { id:'leather-goods',   title:'Leather Goods',       description:'Timeless Companions. Iconic bags, wallets and accessories crafted from the finest hides — objects that improve with every year of use.',               crossSellingSpheres:['fashion','luxury-watches'],       heroImage:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80' },
+  { id:'art-objects',      title:'Art & Objects',       description:'Curated Expressions. Collectible art, sculptural objects and rare editions for interiors that tell a story.',                                          crossSellingSpheres:['living-styles','kitchen-dining'], heroImage:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80' }
 ];
 
-// IDs MÜSSEN exakt mit Supabase sub_sphere_id übereinstimmen!
+// IDs MUST match sub_sphere_id in Supabase exactly!
 const subSpheresMap = {
   'luxury-watches': [
-    { id:'lw-mens',        num:'01a', title:'Herrenuhren',     desc:'Rolex, Patek Philippe, A. Lange & Söhne' },
-    { id:'lw-womens',      num:'01b', title:'Damenuhren',      desc:'Cartier, Chopard, Bulgari' },
-    { id:'lw-sport',       num:'01c', title:'Sportuhren',      desc:'IWC, TAG Heuer, Breitling' }
+    { id:'lw-mens',        num:'01a', title:"Men's Watches",    desc:'Rolex, Patek Philippe, A. Lange & Söhne' },
+    { id:'lw-womens',      num:'01b', title:"Ladies' Watches",  desc:'Cartier, Chopard, Bulgari' },
+    { id:'lw-sport',       num:'01c', title:'Sport Watches',    desc:'IWC, TAG Heuer, Breitling' }
   ],
-  // Fragrances: IDs aus Supabase → fr-sig-men, fr-sig-women, fr-vault-men
   'fragrances': [
-    { id:'fr-sig-men',     num:'03a', title:'Signature Men',   desc:'Tom Ford, Creed, Xerjoff' },
-    { id:'fr-sig-women',   num:'03b', title:'Signature Women', desc:'Amouage, Chanel, Diptyque' },
-    { id:'fr-vault-men',   num:'03c', title:'Private Vault',   desc:'Maison Margiela, Byredo, Niche' }
+    { id:'fr-sig-men',     num:'03a', title:'Signature Men',    desc:'Tom Ford, Creed, Xerjoff' },
+    { id:'fr-sig-women',   num:'03b', title:'Signature Women',  desc:'Amouage, Chanel, Diptyque' },
+    { id:'fr-vault-men',   num:'03c', title:'Private Vault',    desc:'Maison Margiela, Byredo, Niche' }
   ],
-  // Kitchen: kd-cookware, kd-knives aktiv; kd-coffee = 04f in Supabase → ID angepasst
   'kitchen-dining': [
-    { id:'kd-cookware',    num:'04b', title:'Töpfe & Pfannen', desc:'Le Creuset, Staub, Demeyere' },
-    { id:'kd-knives',      num:'04c', title:'Messer',          desc:'Zwilling, Wüsthof, Global' },
-    { id:'04f',            num:'04f', title:'Kaffeemaschinen', desc:"Jura, De'Longhi, Miele" }
+    { id:'kd-cookware',    num:'04b', title:'Cookware',         desc:'Le Creuset, Staub, Demeyere' },
+    { id:'kd-knives',      num:'04c', title:'Knives',           desc:'Zwilling, Wüsthof, Global' },
+    { id:'04f',            num:'04f', title:'Coffee Machines',  desc:"Jura, De'Longhi, Miele" }
   ],
   'audio-technology': [
-    { id:'au-speakers',    num:'06a', title:'Lautsprecher',    desc:'Bang & Olufsen, Bowers & Wilkins' },
-    { id:'au-headphones',  num:'06b', title:'Kopfhörer',       desc:'Focal, Sennheiser, Sony' },
-    { id:'au-smarthome',   num:'06c', title:'Smart Home Audio',desc:'Sonos, Denon, Yamaha' }
+    { id:'au-speakers',    num:'06a', title:'Speakers',         desc:'Bang & Olufsen, Bowers & Wilkins' },
+    { id:'au-headphones',  num:'06b', title:'Headphones',       desc:'Focal, Sennheiser, Sony' },
+    { id:'au-smarthome',   num:'06c', title:'Smart Home Audio', desc:'Sonos, Denon, Yamaha' }
   ]
 };
 
@@ -102,7 +101,6 @@ function switchSub(subId) {
   activeSubId = subId;
   history.replaceState({ sphere: activeSphereId, sub: subId }, '', '?sphere=' + activeSphereId + '&sub=' + subId);
 
-  // Buttons umfärben
   const subs = subSpheresMap[activeSphereId] || [];
   subs.forEach(sub => {
     const btn = document.getElementById('subsphere-btn-' + sub.id);
@@ -113,15 +111,12 @@ function switchSub(subId) {
     btn.style.color      = active ? '#f9f6f0' : 'rgba(249,246,240,0.48)';
   });
 
-  // Sub-Desc aktualisieren
   const activeSub = subs.find(s => s.id === subId);
   const descEl = document.getElementById('soe-sub-desc');
   if (descEl) descEl.textContent = activeSub ? activeSub.desc : '';
 
-  // Produkte laden
   loadProducts(activeSphereId, subId);
 
-  // ── Scroll ins Carousel (nach kurzem Delay, damit DOM settled) ──
   setTimeout(() => {
     const carousel = document.getElementById('soe-carousel');
     if (carousel) carousel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -159,7 +154,7 @@ function closeSphere() {
   gridContainer.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── CAROUSEL SCROLL (Prev/Next Buttons) ──────────────────────
+// ── CAROUSEL SCROLL ───────────────────────────────────────────
 function carouselScroll(dir) {
   const c = document.getElementById('soe-carousel');
   if (!c) return;
@@ -247,7 +242,7 @@ function renderDetail() {
 </style>`;
 }
 
-// ── NAVIGATION (Back-Button) ──────────────────────────────────
+// ── NAVIGATION ────────────────────────────────────────────────
 window.addEventListener('popstate', (e) => {
   if (e.state && e.state.sphere) {
     const sphere = getSphereById(e.state.sphere);
@@ -268,12 +263,13 @@ window.addEventListener('popstate', (e) => {
 // ── START ─────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   initCardEvents();
+  initFooterModals();
   const p  = new URLSearchParams(window.location.search);
   const sp = p.get('sphere');
   if (sp && getSphereById(sp)) openSphere(sp, p.get('sub'));
 });
 
-// ── PRODUKT-DETAIL OVERLAY ────────────────────────────────────
+// ── PRODUKT-OVERLAY ───────────────────────────────────────────
 function openProduct(p) {
   let overlay = document.getElementById('soe-product-overlay');
   if (!overlay) {
@@ -341,20 +337,20 @@ function openProduct(p) {
 
           <a href="${p.affiliate_link||'#'}" target="_blank" rel="noopener sponsored"
             style="display:block;background:#f9f6f0;color:#0B2B1B;text-align:center;padding:16px 32px;font-family:'Inter',sans-serif;font-size:0.82rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;margin-bottom:12px;-webkit-tap-highlight-color:transparent;">
-            Entdecken &amp; Kaufen →
+            Discover &amp; Buy →
           </a>
           <p style="font-size:0.62rem;letter-spacing:1px;color:rgba(249,246,240,0.28);text-align:center;margin:0 0 32px;">
-            Weiterleitung zum verifizierten Händler · Affiliate-Link
+            Redirecting to verified retailer · Affiliate link
           </p>
 
           <div style="border-top:1px solid rgba(249,246,240,0.12);padding-top:24px;">
             <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.3);margin:0 0 14px;">
-              Weiter stöbern
+              Continue Exploring
             </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <button onclick="closeProduct()"
                 style="background:transparent;border:1px solid rgba(249,246,240,0.2);color:rgba(249,246,240,0.6);padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
-                ← Zurück zur Sphäre
+                ← Back to Sphere
               </button>
               ${crossSellHTML}
             </div>
@@ -376,4 +372,151 @@ function closeProduct() {
   if (overlay) overlay.remove();
   document.body.style.overflow = '';
   history.back();
+}
+
+// ── FOOTER MODALS ─────────────────────────────────────────────
+function initFooterModals() {
+  document.querySelectorAll('[data-modal]').forEach(el => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(el.getAttribute('data-modal'));
+    });
+  });
+}
+
+const modalContent = {
+  legal: {
+    title: 'Legal Notice',
+    body: `
+      <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 24px;">Impressum / Legal Disclosure</p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 20px;">
+        <strong style="color:#f9f6f0;">Spheres of Elegance</strong><br>
+        A curated luxury platform by H.M. Renyé<br>
+        Editorial responsibility: H.M. Renyé
+      </p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 20px;">
+        <strong style="color:#f9f6f0;">Affiliate Disclosure</strong><br>
+        This website contains affiliate links. As an Amazon Associate and Awin publisher,
+        we earn a commission from qualifying purchases at no additional cost to you.
+        All products are independently curated.
+      </p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0;">
+        <strong style="color:#f9f6f0;">Disclaimer</strong><br>
+        All product descriptions, prices and availability are for informational purposes only.
+        Final prices are determined by the respective retailers.
+        We accept no liability for pricing errors or product changes.
+      </p>`
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    body: `
+      <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 24px;">Data Protection</p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 20px;">
+        <strong style="color:#f9f6f0;">Data We Collect</strong><br>
+        Spheres of Elegance does not collect personal data directly.
+        No registration, no cookies beyond technical requirements.
+      </p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 20px;">
+        <strong style="color:#f9f6f0;">Third-Party Services</strong><br>
+        We use Supabase for product data (EU servers).
+        Clicking affiliate links will transfer you to Amazon or Awin partner sites,
+        which have their own privacy policies.
+      </p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 20px;">
+        <strong style="color:#f9f6f0;">Analytics</strong><br>
+        We do not use tracking cookies or behavioural analytics.
+        Netlify may collect anonymised access logs.
+      </p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0;">
+        <strong style="color:#f9f6f0;">Contact for Data Requests</strong><br>
+        For any data-related enquiries, please use the contact form below.
+      </p>`
+  },
+  contact: {
+    title: 'Contact',
+    body: `
+      <p style="font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(249,246,240,0.35);margin:0 0 24px;">Get in Touch</p>
+      <p style="line-height:1.8;color:rgba(249,246,240,0.75);margin:0 0 32px;">
+        Collaboration enquiries, press, or product suggestions — we welcome thoughtful conversations.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <label style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.4);display:block;margin-bottom:6px;">Your Name</label>
+          <input id="contact-name" type="text" placeholder="Name"
+            style="width:100%;background:rgba(249,246,240,0.06);border:1px solid rgba(249,246,240,0.18);color:#f9f6f0;padding:10px 14px;font-family:'Inter',sans-serif;font-size:0.85rem;box-sizing:border-box;outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.4);display:block;margin-bottom:6px;">Email</label>
+          <input id="contact-email" type="email" placeholder="your@email.com"
+            style="width:100%;background:rgba(249,246,240,0.06);border:1px solid rgba(249,246,240,0.18);color:#f9f6f0;padding:10px 14px;font-family:'Inter',sans-serif;font-size:0.85rem;box-sizing:border-box;outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(249,246,240,0.4);display:block;margin-bottom:6px;">Message</label>
+          <textarea id="contact-msg" rows="5" placeholder="Your message …"
+            style="width:100%;background:rgba(249,246,240,0.06);border:1px solid rgba(249,246,240,0.18);color:#f9f6f0;padding:10px 14px;font-family:'Inter',sans-serif;font-size:0.85rem;box-sizing:border-box;outline:none;resize:vertical;"></textarea>
+        </div>
+        <button onclick="submitContact()"
+          style="background:#f9f6f0;color:#0B2B1B;border:none;padding:14px 32px;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+          Send Message →
+        </button>
+        <p id="contact-status" style="font-size:0.72rem;color:rgba(249,246,240,0.4);text-align:center;margin:0;min-height:20px;"></p>
+      </div>`
+  }
+};
+
+function openModal(type) {
+  const content = modalContent[type];
+  if (!content) return;
+
+  let modal = document.getElementById('soe-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'soe-modal';
+    document.body.appendChild(modal);
+  }
+
+  modal.style.cssText = `
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(11,43,27,0.97);z-index:9998;
+    overflow-y:auto;display:flex;align-items:flex-start;
+    justify-content:center;padding:0;box-sizing:border-box;
+    animation:soe-fadein 0.3s ease;
+  `;
+
+  modal.innerHTML = `
+    <style>@keyframes soe-fadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}</style>
+    <div style="max-width:700px;width:100%;padding:48px 24px 80px;box-sizing:border-box;font-family:'Inter',sans-serif;color:#f9f6f0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;letter-spacing:2px;color:#f9f6f0;margin:0;text-transform:uppercase;">${content.title}</h2>
+        <button onclick="closeModal()" style="background:transparent;border:1px solid rgba(249,246,240,0.25);color:#f9f6f0;padding:8px 20px;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:2px;cursor:pointer;text-transform:uppercase;-webkit-tap-highlight-color:transparent;">
+          ✕ Close
+        </button>
+      </div>
+      ${content.body}
+    </div>`;
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('soe-modal');
+  if (modal) modal.remove();
+  document.body.style.overflow = '';
+}
+
+function submitContact() {
+  const name  = document.getElementById('contact-name')?.value.trim();
+  const email = document.getElementById('contact-email')?.value.trim();
+  const msg   = document.getElementById('contact-msg')?.value.trim();
+  const status = document.getElementById('contact-status');
+
+  if (!name || !email || !msg) {
+    if (status) status.textContent = 'Please fill in all fields.';
+    return;
+  }
+  const subject = encodeURIComponent('Spheres of Elegance — Enquiry from ' + name);
+  const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+  window.location.href = `mailto:contact@spheres-of-elegance.com?subject=${subject}&body=${body}`;
+  if (status) status.textContent = 'Opening your email client …';
 }

@@ -1,5 +1,5 @@
 # CLAUDE.md – H.M. Renyé: Spheres of Elegance
-**Stand:** 14.06.2026 | **Deployment:** LIVE  
+**Stand:** 15.06.2026 | **Deployment:** LIVE  
 **URL:** https://cute-pasca-7b0419.netlify.app  
 **GitHub:** HagenRenye/netlify-bridge-page  
 **Supabase:** gmibyowinqjfysgarhea  
@@ -9,7 +9,7 @@
 ## 🏗️ TECH STACK
 
 ```
-Frontend:    V5 HTML (pxCode — HEILIGER GRAL, nie anfassen)
+Frontend:    index.html (1287 Zeilen — aktueller Stand = index2.html lokal)
              + spheres-logic inline im HTML <script>
 Datenbank:   Supabase PostgreSQL (3 Tabellen)
 Deploy:      Netlify Auto-Deploy via GitHub push (Free Plan, 300 min)
@@ -36,9 +36,10 @@ Claim: *"We sell decisions that outlast generations."*
 
 | Datei | Zweck |
 |---|---|
-| `index.html` | Hauptseite (4,4 MB — pxCode Export + inline JS) |
-| `legal.html` | Legal Notice + Affiliate Disclosure ✅ NEU |
-| `privacy.html` | Privacy Policy vollständig ✅ NEU |
+| `index.html` | Hauptseite (1287 Zeilen — inline JS + CSR) |
+| `legal.html` | Legal Notice + Affiliate Disclosure (Platzhalter — muss gefüllt werden) |
+| `privacy.html` | Privacy Policy (Platzhalter — muss gefüllt werden) |
+| `logo_final_v2.png` | Lokales Logo-Asset (noch nicht im Header eingesetzt) |
 | `CLAUDE.md` | Diese Datei — Session-Gedächtnis |
 
 ---
@@ -100,52 +101,50 @@ Felder: `id`, `sphere_id`, `sub_sphere_id`, `name`, `brand`, `price_range`, `des
 ## 🐛 BUGS & FIXES HISTORY
 
 ### Fix 14.06.2026 ✅
-**DB-Fixes:**
-- `lw-mens/womens/sport` → `luxury-watches-mens/womens/sport` + `is_active=true`
-- `04f` + `kd-coffee` → `kitchen-coffee`
-- `kd-appliances/cookware/knives` → `kitchen-appliances/cookware/knives`
-- `au-speakers/headphones` → `audio-speakers/audio-headphones`
+- DB sub_sphere_id Normalisierung (lw-mens → luxury-watches-mens etc.)
+- Hero-Bild Bug in renderDetail() behoben
+- Footer-Links auf legal.html / privacy.html gesetzt
+- Disclaimer opacity 0.05 → 0.38
 
-**HTML-Fixes index.html:**
-- Hero-Bild Bug: `renderDetail()` zeigte immer `sphere.heroImage`  
-  Fix: `src="${activeSub && activeSub.heroImage ? activeSub.heroImage : sphere.heroImage}"`
-- Footer-Links: `#` → `legal.html` / `privacy.html` / `mailto:`
-- Disclaimer opacity: `0.05` → `0.38` (war praktisch unsichtbar)
-
-**Neue Dateien:**
-- `legal.html` — Legal Notice + Affiliate Disclosure
-- `privacy.html` — Privacy Policy (DSGVO-konform)
+### Stand 15.06.2026 — index2.html (lokal, noch nicht gepusht)
+- Header bereinigt: doppelte/kaputte Zeilen entfernt
+- Header-Branding: "Spheres of Elegance" + "Hagen R." zentriert
+- Live-Produktlogik (CSR via Supabase) bleibt aktiv
+- 1287 Zeilen total
 
 ---
 
-## ⚠️ BEKANNTE OFFENE PUNKTE
+## ⚠️ OFFENE AUFGABEN (Priorität)
 
-1. `living-styles` hat `sub_sphere_id = '05a'` — noch nicht normalisiert
-2. `fine-jewelry` + `art-objects`: keine Sub-Sphere-IDs → kein Karussell
-3. Produkte mit `sub_sphere_id = null` erscheinen in keinem Karussell
-4. Niche Story Perfume DE (119271) noch keine Produkte in DB
-5. `contact@spheres-of-elegance.com` — E-Mail-Adresse muss noch eingerichtet werden
+1. **index2.html → GitHub pushen** (Hagen macht das lokal via VS Code)
+2. **legal.html** — finaler Rechtstext einfüllen (Impressum + Affiliate Disclosure)
+3. **privacy.html** — finale DSGVO-konforme Privacy Policy einfüllen
+4. **logo_final_v2.png** — Header-Logo durch Bild ersetzen (text → img)
+5. **living-styles** sub_sphere_id `05a` normalisieren
+6. **fine-jewelry + art-objects** — Sub-Sphere-IDs fehlen → kein Karussell
+7. **Niche Story Perfume DE** (119271) — Produkte in DB eintragen
+8. **contact@spheres-of-elegance.com** — E-Mail einrichten
 
 ---
 
 ## 🚫 KRITISCHE REGELN
 
 1. **GitHub API Tree** → TIMEOUT wegen node_modules — nie `git/trees?recursive=1`
-2. **Dateipfade direkt raten** und via Raw-URL laden
-3. **Supabase:** `execute_sql` ist zuverlässiger als `apply_migration`
-4. **Netlify Free Plan:** Kein SSR/SSG — alles Client-Side Rendering (CSR)
-5. **pxCode HTML** (V5) = Heiliger Gral — Design nie anfassen
-6. **Neue Fixes:** Erst lokal testen + verifizieren, dann pushen
+2. **Dateipfade direkt** via Raw-URL laden
+3. **Supabase:** `execute_sql` zuverlässiger als `apply_migration`
+4. **Netlify Free Plan:** Kein SSR/SSG — alles CSR
+5. **index.html** = nie blind überschreiben — immer erst Raw-URL lesen
+6. **Neue Fixes:** Erst lokal testen, dann pushen
 7. **Token-Warnung** bei 80% → Stand speichern + Prompt für nächsten Chat
+8. **index2.html** = aktuellster lokaler Stand (Hagen hat lokal via VS Code gearbeitet)
 
 ---
 
 ## 📋 SESSION-START CHECKLISTE
 
-1. `CLAUDE.md` lesen (diese Datei)
-2. DB-Stand mit `execute_sql` prüfen falls nötig
-3. Aktuellen HTML-Stand via Raw-URL laden (nicht GitHub Contents API — zu groß)
-4. Bei GitHub API Problemen: Raw URL nutzen: `https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/[datei]`
+1. `CLAUDE.md` lesen (Raw: `https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CLAUDE.md`)
+2. index.html via Raw-URL laden um aktuellen Stand zu prüfen
+3. DB-Stand mit `execute_sql` prüfen falls nötig
 
 ---
 
@@ -156,5 +155,17 @@ Lies bitte zuerst die CLAUDE.md aus dem GitHub-Repo HagenRenye/netlify-bridge-pa
 (Raw URL: https://raw.githubusercontent.com/HagenRenye/netlify-bridge-page/main/CLAUDE.md).
 Projekt: Spheres of Elegance (cute-pasca-7b0419.netlify.app).
 Supabase: gmibyowinqjfysgarhea.
-Wir arbeiten weiter an der Website. Aktueller Stand ist in der CLAUDE.md dokumentiert.
+
+WICHTIG: Hagen hat lokal mit VS Code an index2.html gearbeitet (1287 Zeilen, bereinigter Header).
+Diese Datei muss er noch via VS Code/GitHub nach main pushen — dann ist sie als index.html live.
+
+Offene Aufgaben (Priorität):
+1. legal.html mit finalem Impressum + Affiliate Disclosure füllen
+2. privacy.html mit DSGVO-konformer Privacy Policy füllen  
+3. logo_final_v2.png als Header-Logo einsetzen
+4. fine-jewelry + art-objects Sub-Sphere-IDs anlegen → Karussell aktivieren
+5. living-styles sub_sphere_id 05a normalisieren
+
+Strategie für große HTML-Dateien: Immer nur den relevanten JS-Block extrahieren,
+nie die ganze Datei laden. Änderungen als Patch zeigen, Hagen fügt lokal ein.
 ```

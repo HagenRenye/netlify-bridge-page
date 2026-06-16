@@ -1,5 +1,5 @@
 # CLAUDE_SPHERES.md – H.M. Renyé: Spheres of Elegance
-**Stand: 12.06.2026 — 14:00** | Deployment: LIVE
+**Stand: 16.06.2026 — 09:00** | Deployment: LIVE
 **URL:** https://cute-pasca-7b0419.netlify.app
 **GitHub:** HagenRenye/netlify-bridge-page | **Supabase:** gmibyowinqjfysgarhea
 
@@ -44,16 +44,21 @@ Kategorien: Uhren 368208031 | Parfüm 64257031 | Küche 3167641 | HiFi 3171261 |
 
 ---
 
-## ✅ REPARIERT (12.06.2026)
+## ✅ REPARIERT (16.06.2026)
 
 | Fix | Details |
 |-----|---------|
-| switchSub → Carousel-Scroll | scrollIntoView nach 100ms |
-| Fragrances IDs | fr-men/women/unisex → fr-sig-men / fr-sig-women / fr-vault-men |
-| Kitchen 04f | kd-coffee → 04f (Supabase-konform) |
-| crossSell ReferenceError | Variable statt Template-String |
-| Picsum-Platzhalter | "Loading…" ersetzt |
-| Carousel Prev/Next | ‹ › Buttons mit carouselScroll() |
+| Footer Sprachbuttons | EN/DE/ES/FR/IT komplett entfernt |
+| legal.html | Vollständig erstellt: Betreiber, Amazon, Awin, Haftung, IP |
+| privacy.html | Vollständig erstellt: Supabase, Amazon, Awin, Netlify, DSGVO |
+| Contact E-Mail | Daoreha1@gmail.com in allen 3 Dateien gesetzt |
+| Footer-Links | legal.html + privacy.html + mailto korrekt verlinkt |
+| index2_modified.html | Footer bereinigt, alle 3 Links aktiv |
+
+**Dateien zum Pushen (lokal in Downloads):**
+- `index2_modified.html` → als `index.html` auf GitHub hochladen
+- `legal.html` → direkt pushen
+- `privacy.html` → direkt pushen
 
 ---
 
@@ -84,19 +89,18 @@ Kategorien: Uhren 368208031 | Parfüm 64257031 | Küche 3167641 | HiFi 3171261 |
 ## 📋 OFFENE TASKS (Priorität)
 
 ### 🔴 KRITISCH
-1. **Footer-Links** — "Legal Notice · Privacy Policy · Contact" sind Placeholder-Text ohne Funktion. Brauchen echte Seiten oder Modal-Overlays (JS-only, kein HTML). DSGVO-relevant!
-2. **kd-appliances** — 3 Produkte deaktiviert: Affiliate-Link fehlt?
-3. **fine-jewelry / fashion / leather-goods** — alle deaktiviert, keine Sub-Sphären in JS
+1. **index.html manuell auf GitHub hochladen** (index2_modified.html umbenennen)
+2. **legal.html + privacy.html pushen** via GitHub MCP
+3. **kd-appliances** — 3 Produkte deaktiviert: Affiliate-Link fehlt?
+4. **fine-jewelry / fashion / leather-goods** — alle deaktiviert
 
 ### 🟡 WICHTIG
-4. **Sub-Sphären in JS** fehlen für: Fashion, Living (05a!), Leather, Art, Jewelry
-5. **living-styles** hat Sub-ID `05a` in Supabase — kein JS-Eintrag
-6. **V9 testen** auf live-Site: Fragrances, Kitchen, Watches
+5. **Sub-Sphären in JS** fehlen für: Fashion, Living (05a!), Leather, Art, Jewelry
+6. **living-styles** hat Sub-ID `05a` in Supabase — kein JS-Eintrag
 
 ### 🟢 GEPLANT
-7. Sphären-Catcher (Taglines) für Sphären 02, 03, 04, 09
-8. Pinterest-Strategie + Make.com Automation
-9. i18n EN/IT/FR/ES
+7. Pinterest-Strategie + Make.com Automation
+8. Affiliate-Programme erweitern (Michael Kors, Chronext)
 
 ---
 
@@ -108,6 +112,7 @@ Kategorien: Uhren 368208031 | Parfüm 64257031 | Küche 3167641 | HiFi 3171261 |
 4. **Sub-IDs JS = exakt Supabase sub_sphere_id**
 5. **Windows-User — kein Linux/Bash**
 6. **Neue Änderungen: erst testen, dann pushen**
+7. **index.html (4.4MB) — nur manuell via GitHub Upload, nie MCP**
 
 ---
 
@@ -119,5 +124,14 @@ Publisher-ID: 2909169
 |----------|--------|
 | Watches Of USA (116479) | ✅ Aktiv |
 | Watch Home Awin First (51893) | ✅ Aktiv |
+| Living with Luxury (119901) | ✅ Aktiv |
+| Rocket Espresso (38418) | ✅ Aktiv |
+| Niche Story Perfume DE (119271) | ✅ Aktiv |
 | Michael Kors EU | 🔄 Beworben |
 | Chronext DE/AT/CH/FR | 🔄 Beworben |
+
+---
+
+## 📧 KONTAKT
+
+E-Mail: Daoreha1@gmail.com
